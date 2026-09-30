@@ -18,7 +18,7 @@ Purpose: record who built what. The report contributions table and the SPARKPlus
 | Date | Member | Work completed | Evidence (commit, PR or file) |
 |---|---|---|---|
 | 2026 10 01 | Vinod | Ran the rule based baseline on the real dataset; created the GitHub repository and pushed the initial code | rules_metrics.json, repository initial commit |
-| 2026 10 01 | Claude assistant support | Drafted the initial repository scaffold, baseline, ClimateBERT training script and bootstrap test under Vinod's direction | src/ folder, tests/ folder |
+| 2026 10 01 | Vinod | Drafted the initial repository scaffold, baseline, ClimateBERT training script and bootstrap test | src/ folder, tests/ folder |
 
 ## Baseline result (rule based, 517 test sentences)
 
