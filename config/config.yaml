@@ -1,0 +1,27 @@
+# Central configuration for PledgeGrader. All scripts read this file.
+seed: 42                      # Fixed seed used for every random operation
+dataset:
+  hf_name: climatebert/netzero_reduction_data   # Hugging Face dataset id
+  text_column: text           # NEEDS VERIFICATION against the dataset card
+  label_column: label         # NEEDS VERIFICATION against the dataset card
+  raw_dir: data               # Local cache directory for downloaded splits
+labels:                       # Label schema shared by all three methods
+  0: none
+  1: net_zero
+  2: reduction
+scoring:                      # Points awarded per robustness signal (sum to 100)
+  target_year: 25
+  scope3: 25
+  offsets: 25
+  milestones: 25
+paths:
+  predictions_dir: outputs    # Stored evaluation outputs used to build report tables
+climatebert:                  # Fine tuning settings for the transformer arm
+  base_model: climatebert/distilroberta-base-climate-f   # NEEDS VERIFICATION on the Hub
+  output_dir: models/climatebert
+  max_length: 128
+  epochs: 4
+  batch_size: 16
+  learning_rate: 0.00003
+bootstrap:
+  n_resamples: 10000

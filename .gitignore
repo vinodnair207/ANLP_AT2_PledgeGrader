@@ -1,0 +1,7 @@
+__pycache__/
+.venv/
+data/*.csv
+.env
+models/
+*_checkpoints/
+.pytest_cache/
