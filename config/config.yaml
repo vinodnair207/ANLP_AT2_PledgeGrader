@@ -2,9 +2,9 @@
 seed: 42                      # Fixed seed used for every random operation
 dataset:
   hf_name: climatebert/netzero_reduction_data   # Hugging Face dataset id
-  text_column: text           # NEEDS VERIFICATION against the dataset card
-  label_column: label         # NEEDS VERIFICATION against the dataset card
-  raw_dir: data               # Local cache directory for downloaded splits
+  text_column: text           # Verified column holding the sentence
+  label_column: target        # Verified column holding the class label
+  raw_dir: data               # Local cache directory for the shared splits
 labels:                       # Label schema shared by all three methods
   0: none
   1: net_zero
