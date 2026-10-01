@@ -1,0 +1,65 @@
+{
+  "seed": 42,
+  "total_rows": 3441,
+  "splits": {
+    "train": {
+      "n": 2408,
+      "class_counts": {
+        "none": 1065,
+        "reduction": 685,
+        "net_zero": 658
+      },
+      "class_share": {
+        "none": 0.4423,
+        "reduction": 0.2845,
+        "net_zero": 0.2733
+      },
+      "duplicate_texts": 0,
+      "chars_median": 164,
+      "chars_p95": 627,
+      "chars_max": 4172,
+      "rows_with_line_breaks": 694
+    },
+    "validation": {
+      "n": 516,
+      "class_counts": {
+        "none": 228,
+        "reduction": 147,
+        "net_zero": 141
+      },
+      "class_share": {
+        "none": 0.4419,
+        "reduction": 0.2849,
+        "net_zero": 0.2733
+      },
+      "duplicate_texts": 0,
+      "chars_median": 171,
+      "chars_p95": 619,
+      "chars_max": 4197,
+      "rows_with_line_breaks": 139
+    },
+    "test": {
+      "n": 517,
+      "class_counts": {
+        "none": 229,
+        "reduction": 147,
+        "net_zero": 141
+      },
+      "class_share": {
+        "none": 0.4429,
+        "reduction": 0.2843,
+        "net_zero": 0.2727
+      },
+      "duplicate_texts": 0,
+      "chars_median": 159,
+      "chars_p95": 650,
+      "chars_max": 7058,
+      "rows_with_line_breaks": 133
+    }
+  },
+  "overlap_between_splits": {
+    "train_validation": 0,
+    "train_test": 0,
+    "validation_test": 0
+  }
+}
