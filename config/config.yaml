@@ -23,5 +23,8 @@ climatebert:                  # Fine tuning settings for the transformer arm
   epochs: 4
   batch_size: 16
   learning_rate: 0.00003
+labelling:                    # Signal answer key inputs
+  completed_glob: labelling/completed/*.xlsx   # One completed workbook per labeller
+  sheet: Labelling            # Sheet name that holds the labels
 bootstrap:
   n_resamples: 10000

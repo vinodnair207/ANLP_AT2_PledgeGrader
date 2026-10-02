@@ -44,6 +44,18 @@ def _standardise(frame: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     return out
 
 
+def make_splits(full: pd.DataFrame, seed: int) -> dict:
+    """Returns a stratified 70/15/15 split as a dict of train, validation and test frames.
+
+    The first call keeps 70 percent for training. The second call halves the
+    remainder into validation and test. Stratification keeps the class mix the
+    same in every split, and the seed makes the result reproducible.
+    """
+    train, rest = train_test_split(full, test_size=0.30, stratify=full["label"], random_state=seed)
+    val, test = train_test_split(rest, test_size=0.50, stratify=rest["label"], random_state=seed)
+    return {"train": train, "validation": val, "test": test}
+
+
 def load_dataset(cfg: dict) -> dict:
     """Loads the climatebert dataset and returns a dict of train, validation and test DataFrames.
 
@@ -68,10 +80,7 @@ def load_dataset(cfg: dict) -> dict:
     else:
         # Only one split is published, so the shared split is created here.
         full = _standardise(ds["train"].to_pandas(), cfg).dropna().drop_duplicates("text")
-        seed = cfg["seed"]
-        train, rest = train_test_split(full, test_size=0.30, stratify=full["label"], random_state=seed)
-        val, test = train_test_split(rest, test_size=0.50, stratify=rest["label"], random_state=seed)
-        splits = {"train": train, "validation": val, "test": test}
+        splits = make_splits(full, cfg["seed"])
     for name, frame in splits.items():
         frame.reset_index(drop=True).to_csv(cached[name], index=False)
         logger.info("Saved %s split: %d rows", name, len(frame))
