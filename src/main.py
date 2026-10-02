@@ -1,4 +1,4 @@
-"""Command line entry point: evaluates the rule based baseline on the shared test set.
+"""Command line entry point: evaluates one method on the shared test set.
 
 Usage: python -m src.main --method rules
 """
@@ -8,9 +8,8 @@ import logging
 from pathlib import Path
 
 import pandas as pd
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
-from src import data_processing, model, utils
+from src import data_processing, evaluation, model, utils
 
 logger = logging.getLogger(__name__)
 
@@ -22,14 +21,16 @@ def evaluate(method: str, cfg: dict) -> dict:
     # Labels are already standardised to string names by data_processing.
     gold = test["label"]
     preds = [arm.predict(t)["label"] for t in test["text"]]
-    p, r, f1, _ = precision_recall_fscore_support(gold, preds, average="macro", zero_division=0)
-    metrics = {"method": method, "n": len(test), "accuracy": accuracy_score(gold, preds),
-               "macro_precision": p, "macro_recall": r, "macro_f1": f1}
+    # The class order comes from the config schema so every method uses one layout.
+    labels = list(cfg["labels"].values())
+    metrics = {"method": method, "n": len(test), **evaluation.compute_metrics(gold, preds, labels)}
     out = Path(cfg["paths"]["predictions_dir"])
     out.mkdir(parents=True, exist_ok=True)
     # Stores row level predictions so the error review and bootstrap test can reuse them.
     pd.DataFrame({"text": test["text"], "gold": gold, "pred": preds}).to_csv(out / f"{method}_predictions.csv", index=False)
-    (out / f"{method}_metrics.json").write_text(json.dumps(metrics, indent=2))
+    (out / f"{method}_metrics.json").write_text(json.dumps(metrics, indent=2) + "\n", encoding="utf8")
+    # Stores the confusion matrix as CSV so it can be opened directly or plotted for the report.
+    evaluation.confusion_frame(metrics).to_csv(out / f"{method}_confusion_matrix.csv")
     return metrics
 
 
@@ -42,7 +43,11 @@ def main() -> None:
     cfg = utils.load_config()
     utils.set_seed(cfg["seed"])
     try:
-        logger.info("Metrics: %s", evaluate(args.method, cfg))
+        metrics = evaluate(args.method, cfg)
+        logger.info("Overall: accuracy %.4f, macro F1 %.4f (n=%d)", metrics["accuracy"], metrics["macro_f1"], metrics["n"])
+        for label, m in metrics["per_class"].items():
+            logger.info("Class %-10s precision %.4f recall %.4f f1 %.4f support %d",
+                        label, m["precision"], m["recall"], m["f1"], m["support"])
     except Exception:  # Logs the full traceback, then exits with a readable message.
         logger.exception("Evaluation failed")
         raise SystemExit(1)
