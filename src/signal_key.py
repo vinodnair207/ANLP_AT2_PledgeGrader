@@ -32,21 +32,28 @@ RULE_SIGNAL_METHODS = {"rules", "climatebert"}
 def load_labelled_sheets(paths: list, sheet: str = "Labelling") -> pd.DataFrame:
     """Reads completed labelling workbooks and returns one long table of complete rows.
 
-    Each workbook is one labeller, identified by the file name. Y becomes True and
+    Two layouts are supported. A shared workbook has one tab per labeller, and the
+    tab name identifies the labeller. A single labeller workbook has one tab called
+    by the sheet argument, and the file name identifies the labeller. Tabs without
+    the four signal columns, such as the Guide tab, are ignored. Y becomes True and
     N becomes False. Rows with any empty or invalid signal cell are dropped and counted.
     """
     frames = []
     for path in paths:
-        raw = pd.read_excel(path, sheet_name=sheet)
-        marks = raw[SIGNALS].apply(lambda col: col.astype(str).str.strip().str.upper())
-        complete = marks.isin(["Y", "N"]).all(axis=1)
-        dropped = int((~complete).sum())
-        if dropped:
-            logger.warning("%s: %d of %d rows are incomplete and were skipped", Path(path).name, dropped, len(raw))
-        frame = raw.loc[complete, ["id", "assigned_to", "text"]].copy()
-        frame[SIGNALS] = marks.loc[complete].eq("Y")
-        frame["rater"] = Path(path).stem
-        frames.append(frame)
+        for tab, raw in pd.read_excel(path, sheet_name=None).items():
+            if not set(["id", "assigned_to", "text", *SIGNALS]) <= set(raw.columns):
+                continue
+            rater = Path(path).stem if tab == sheet else tab
+            marks = raw[SIGNALS].apply(lambda col: col.astype(str).str.strip().str.upper())
+            complete = marks.isin(["Y", "N"]).all(axis=1)
+            dropped = int((~complete).sum())
+            if dropped:
+                logger.warning("%s / %s: %d of %d rows are incomplete and were skipped",
+                               Path(path).name, tab, dropped, len(raw))
+            frame = raw.loc[complete, ["id", "assigned_to", "text"]].copy()
+            frame[SIGNALS] = marks.loc[complete].eq("Y")
+            frame["rater"] = rater
+            frames.append(frame)
     if not frames:
         return pd.DataFrame(columns=["id", "assigned_to", "text", *SIGNALS, "rater"])
     return pd.concat(frames, ignore_index=True)

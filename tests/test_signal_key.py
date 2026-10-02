@@ -79,3 +79,16 @@ def test_rule_methods_use_shared_checks_and_others_need_a_file(tmp_path):
         tmp_path / "llm_signals.csv", index=False)
     llm = sk.signals_for_method("llm", texts, tmp_path)
     assert llm.loc[0, "target_year"] and not llm.loc[0, "scope3"]
+
+
+def test_shared_workbook_uses_tab_names_and_skips_guide(tmp_path):
+    path = tmp_path / "shared.xlsx"
+    columns = ["id", "assigned_to", "text", *sk.SIGNALS, "notes"]
+    with pd.ExcelWriter(path) as writer:
+        pd.DataFrame({"Signal": ["target_year"], "Rule": ["text"]}).to_excel(writer, sheet_name="Guide", index=False)
+        for tab, marks in [("Member 1", "YYYY"), ("Member 2", "YNYN")]:
+            pd.DataFrame([[1, "ALL", "sentence 1", *list(marks), None]], columns=columns).to_excel(
+                writer, sheet_name=tab, index=False)
+    long = sk.load_labelled_sheets([path])
+    assert sorted(long["rater"]) == ["Member 1", "Member 2"]
+    assert sk.agreement(long)["target_year"]["n_raters"] == 2
