@@ -40,7 +40,7 @@ Requirements: Git, Python 3.10 or newer (tested on 3.11), [uv](https://docs.astr
 
    PyTorch is a large download. If you only need the rule based baseline for now, use `uv sync --no-install-package torch`.
 
-4. Run the tests. All of them should pass:
+4. Run the tests. All of them should pass (39 at the time of writing):
 
    ```
    uv run pytest
@@ -60,6 +60,8 @@ Requirements: Git, Python 3.10 or newer (tested on 3.11), [uv](https://docs.astr
    git checkout -b feat/<your-role>
    ```
 
+After every `git pull`, run `uv sync` again, because new packages are added from time to time.
+
 Notes for Windows: a warning about symlinks from `huggingface_hub` is harmless. A warning about unauthenticated requests is also harmless. To remove it, create a free Hugging Face token and set it as the `HF_TOKEN` environment variable.
 
 ## Roles and where to work
@@ -68,14 +70,14 @@ Owners are recorded in `docs/contributions_log.md`. Update that file whenever yo
 
 | Role | Main files | First task |
 | --- | --- | --- |
-| Data and evaluation lead | `src/data_processing.py`, `src/main.py`, `src/significance.py` | Confirm the split, then evaluate every method and run the bootstrap test |
+| Data and evaluation lead | `src/data_processing.py`, `src/main.py`, `src/evaluation.py`, `src/significance.py`, `src/signal_key.py`, `src/error_analysis.py`, `src/report_assets.py` | Confirm the split, evaluate every method, run the bootstrap test, build the signal answer key and generate the report tables and figures |
 | Rule based baseline owner | `src/rules.py`, `tests/test_rules.py` | Review failures against the signal answer key and extend the tests |
 | ClimateBERT fine tuning owner | `src/train_climatebert.py`, `ClimateBertArm` in `src/model.py` | Run training, record metrics, upload the model to the Hugging Face Hub |
 | LLM prompting owner | `ZeroShotLLMArm` in `src/model.py` | Write the prompt template and the arm, then check consistency |
 | Web application and UX owner | `app.py` (to be created) | Build the Streamlit page on top of the baseline, then add the other arms |
 | Coordination and report lead | `docs/`, the report | Keep the contributions log, report structure and checklist current |
 
-Every member also writes at least one report section and labels their share of the signal sheet.
+Every member also writes at least one report section and labels their own tab of the signal sheet.
 
 ## Everyday commands
 
@@ -86,8 +88,19 @@ Every member also writes at least one report section and labels their share of t
 | Train ClimateBERT | `uv run python -m src.train_climatebert` |
 | Evaluate ClimateBERT | `uv run python -m src.main --method climatebert` |
 | Compare two methods with a paired bootstrap | `uv run python -m src.significance --a rules --b climatebert` |
+| Build the signal answer key and score methods on the signals | `uv run python -m src.signal_key --methods rules` |
+| Export the error analysis and the manual review sample | `uv run python -m src.error_analysis` |
+| Generate every report table and figure | `uv run python -m src.report_assets` |
 
 Evaluation writes `outputs/<method>_metrics.json` and `outputs/<method>_predictions.csv`. These files are committed on purpose, because the report tables are generated from them.
+
+## Prediction file format
+
+The comparison between the three methods only works when every method stores its predictions in the same shape. Each method must save `outputs/<method>_predictions.csv` with three columns: `text`, `gold` and `pred`. The file must cover the same 517 test sentences in the same order as `data/test.csv`, and labels must be exactly `none`, `net_zero` or `reduction`. The command `uv run python -m src.main --method <method>` writes this file for the rule based and ClimateBERT arms. The LLM arm must produce the same file, using the method name `llm`.
+
+The LLM arm must also save `outputs/llm_signals.csv` with the columns `text`, `target_year`, `scope3`, `offsets` and `milestones` (True or False), so that its signals can be scored against the answer key.
+
+Targets for the stored predictions: ClimateBERT by Monday 5 October and the LLM arm by Thursday 8 October.
 
 ## Git workflow
 
@@ -108,10 +121,16 @@ src/rules.py              Rule based target classifier and the four signal check
 src/model.py              The three method classes behind one interface
 src/train_climatebert.py  Fine tunes ClimateBERT and saves it to models/climatebert
 src/main.py               Evaluates a method on the shared test set
+src/evaluation.py         Accuracy, macro and per class metrics, confusion matrix
 src/significance.py       Paired bootstrap test on macro F1
+src/split_summary.py      Writes outputs/split_summary.json to check the shared split
+src/signal_key.py         Builds the signal answer key, agreement score and signal metrics
+src/error_analysis.py     Error table, disagreement summary and manual review sample
+src/report_assets.py      Builds every report table and figure from the stored outputs
 tests/                    Unit tests
 outputs/                  Stored evaluation results (committed)
-labelling/                Spreadsheet for the signal answer key
+outputs/report/           Generated report tables (CSV) and figures (PNG)
+labelling/                Signal labelling workbook, and completed/ for the finished labels
 docs/                     Contributions log and team documents
 ```
 
@@ -125,12 +144,28 @@ Every method exposes `predict(text)` and returns a dictionary with these keys: `
 - The dataset ships as one block. `load_dataset` in `src/data_processing.py` makes a stratified 70/15/15 split with seed 42: 2,408 train, 516 validation and 517 test sentences.
 - The test set is used only to mark the methods. Do not train or tune on it.
 - The split is cached in `data/`. The fixed seed makes everyone's split identical.
+- `outputs/split_summary.json` records the class counts of every split, and a unit test fails if the split ever changes. Do not edit the split.
+
+Known data issues, to be mentioned in the report:
+
+- About 1 in 4 sentences contains line breaks (133 of the 517 test sentences).
+- A few sentences are very long (the longest test sentence is about 7,000 characters, and the 95th percentile is about 650). ClimateBERT reads only 128 tokens, so long sentences are cut off.
+- A small share of sentences (roughly 2 percent) are not in English.
 
 ## Signal answer key (labelling)
 
-The dataset labels only the target type, so the four signals need their own answer key. `labelling/signal_gold_set.xlsx` holds 100 sentences from the test set. Rows assigned to `ALL` are labelled by every member, which lets the report give an agreement score. The remaining rows are split across members. Read the Guide sheet first, and do not look at model outputs while labelling.
+The dataset labels only the target type, so the four signals need their own answer key. The key is built from 100 sentences taken from the test set. Because they come from the test set, use the key only to measure the methods, never to tune them.
 
-Because these sentences come from the test set, use the key only to measure the methods, never to tune them.
+How the labelling works:
+
+1. The coordination lead shares one Google Sheet made from `labelling/signal_labelling_shared.xlsx`. It has a Guide tab and one tab per member.
+2. Each member labels only their own tab: Y or N for the four signals on every row. Read the Guide tab first, judge only the sentence shown, choose N if unsure, and do not look at model outputs while labelling.
+3. Every tab also contains the same 12 shared rows (marked `ALL`). Every member labels them independently, and they give the agreement score for the report. Do not look at another member's tab.
+4. A few sentences are not in English. Paste them into a translator if needed and judge the translation.
+5. When everyone has finished, the data and evaluation lead downloads the sheet as .xlsx and saves it as `labelling/completed/signal_labels.xlsx`.
+6. Run `uv run python -m src.signal_key --methods rules` to build the answer key and score the methods on the signals. It writes `outputs/signal_key.csv`, `outputs/signal_agreement.json` and `outputs/signal_metrics_<method>.json`.
+
+On the shared rows the answer is decided by majority vote, and a tie counts as N. The rule based and ClimateBERT arms use the same signal checks, so they receive identical signal scores. The comparison on signals is therefore between the rules and the LLM arm.
 
 ## Code and writing standards
 
@@ -144,17 +179,16 @@ Because these sentences come from the test set, use the key only to measure the 
 
 | Part | Status |
 | --- | --- |
+| Shared split and split check | Done. 2,408 train, 516 validation, 517 test, verified by a unit test |
 | Rule based arm | Done. Accuracy 0.845, macro F1 0.831 on 517 test sentences |
+| Evaluation (per class metrics, confusion matrix) | Done |
+| Error analysis export | Done. Runs on whichever predictions exist |
+| Report table and figure generator | Done. Reruns after every new set of predictions |
+| Signal answer key script | Done. Labelling workbook ready, labelling not started |
 | ClimateBERT training script and arm | Written, not yet run |
-| Bootstrap significance test | Written, waiting for real predictions |
+| Bootstrap significance test | Written and tested, waiting for ClimateBERT and LLM predictions |
 | Zero shot LLM arm | Not started. Needs a provider and API key |
 | Web app (Streamlit) | Not started |
 | Deployment (Hugging Face Spaces) | Not started |
-| Signal answer key | Spreadsheet drafted, labelling not started |
 | Report | Not started |
 
-## Timeline
-
-Days 1 to 2 (1 to 2 Oct): roles, stack, repository and split locked. Days 3 to 5 (3 to 5 Oct): ClimateBERT, LLM arm and app skeleton. Days 6 to 8 (6 to 8 Oct): evaluate all three methods, significance test, error review. Days 9 to 10 (9 to 10 Oct): app polish and public link. Days 11 to 12 (11 to 12 Oct): report draft and peer review. Day 13 (13 Oct): proofread, submit, complete SPARKPlus. Day 14 (14 Oct): deadline buffer.
-
-Choose the web stack by the end of Day 2 and do not change it afterwards.
