@@ -1,0 +1,92 @@
+{
+ "10d0d0797a64020de09933ac39135c98ce3009878732cdeb795ba0b70b316d66": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text mentions past recognition in sustainability awards rather than committing to an emissions target. As a result, no climate targets or credibility signals are present.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "0a5762bfc6c4f29fd5ca8fc4a22345be4ae938d3bb1e58fa0da217bf5531f6b6": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text outlines a target for sustainable financing allocation rather than a greenhouse gas emissions reduction or net-zero commitment. Consequently, all emissions-specific credibility signals such as Scope 3 coverage, offsets, and milestone pathways are absent.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "806310bcd31a95b9e7c09f7a3f3f86ea8535d8fa0f9e750aa4564666e01b15f4": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text mentions past recognition for environmental awards but does not contain any specific future emission reduction or net zero targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "6f5866e9e295b34845a3ec738744f79a1be8bf8557bad5efbd236ea19f216777": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes a financial commitment to increase funding for climate-related projects rather than a target to reduce the organization's own greenhouse gas emissions. Because it is not an emissions reduction or net zero target, all credibility signals are absent.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "1c18d80a10af2d3931d5ca493798abe3bf31d26a7830849edc4f4bc9e1516ce4": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The text outlines a government goal to reduce greenhouse gas emissions by 95% by 2050. It lacks information regarding Scope 3 emissions, the use of carbon offsets, and any interim milestones.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ }
+}

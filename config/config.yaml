@@ -28,3 +28,11 @@ labelling:                    # Signal answer key inputs
   sheet: Labelling            # Sheet name that holds the labels
 bootstrap:
   n_resamples: 10000
+llm:                          # Zero shot Gemini arm (src/llm_arm.py)
+  model: gemini-3.1-flash-lite
+  min_seconds_between_calls: 5.0    # Exact id from Google AI Studio; never an alias such as "latest"
+  temperature: 0.0            # Most repeatable answers
+  max_chars: 8000             # Longer pasted texts are cut; the longest test sentence is about 7,000
+  max_retries: 6
+  min_seconds_between_calls: 13.0  # 60 / free tier requests per minute, plus a margin (5 RPM -> 13 s)
+  cache_path: outputs/llm_cache.json

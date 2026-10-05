@@ -1,11 +1,13 @@
 """Model arms. Each arm exposes predict(text) returning a dict with a label key.
 
-The rule based and ClimateBERT arms are complete. The zero shot LLM arm is a stub
-owned by its team member and must keep the same interface.
+All three arms share the same interface. The zero shot LLM arm is defined in
+src/llm_arm.py and re-exported here.
 """
 from pathlib import Path
 
 from src import rules
+# The zero shot LLM arm lives in its own module because it carries the prompt and API handling.
+from src.llm_arm import ZeroShotLLMArm
 
 
 class RuleBasedArm:
@@ -57,15 +59,6 @@ class ClimateBertArm:
                 "explanation": rules.score_and_explain(text, self.points)["explanation"]}
 
 
-class ZeroShotLLMArm:
-    """Placeholder for the zero shot LLM prompting arm (owner: LLM lead)."""
-
-    name = "llm"
-
-    def predict(self, text: str) -> dict:
-        raise NotImplementedError("LLM arm not implemented yet")
-
-
 def get_arms(cfg: dict, names=("rules", "climatebert")) -> dict:
     """Builds the requested arms. ClimateBERT is skipped when no trained model exists yet."""
     arms = {}
@@ -73,4 +66,6 @@ def get_arms(cfg: dict, names=("rules", "climatebert")) -> dict:
         arms["rules"] = RuleBasedArm(cfg)
     if "climatebert" in names and Path(cfg["climatebert"]["output_dir"]).exists():
         arms["climatebert"] = ClimateBertArm(cfg)
+    if "llm" in names:
+        arms["llm"] = ZeroShotLLMArm(cfg)
     return arms
