@@ -53,10 +53,18 @@ def load_labelled_sheets(paths: list, sheet: str = "Labelling") -> pd.DataFrame:
             frame = raw.loc[complete, ["id", "assigned_to", "text"]].copy()
             frame[SIGNALS] = marks.loc[complete].eq("Y")
             frame["rater"] = rater
+            frame["file"] = Path(path).name
             frames.append(frame)
     if not frames:
-        return pd.DataFrame(columns=["id", "assigned_to", "text", *SIGNALS, "rater"])
-    return pd.concat(frames, ignore_index=True)
+        return pd.DataFrame(columns=["id", "assigned_to", "text", *SIGNALS, "rater", "file"])
+    long = pd.concat(frames, ignore_index=True)
+    # The same labeller appearing in two workbooks (for example a partial and a final export) would count twice.
+    duplicated = long[long.duplicated(["rater", "id"], keep=False)]
+    if not duplicated.empty:
+        raise ValueError(
+            f"Duplicate labels for {sorted(duplicated['rater'].unique())} found in {sorted(duplicated['file'].unique())}. "
+            "Keep only the final export in the completed folder.")
+    return long
 
 
 def build_key(long: pd.DataFrame) -> pd.DataFrame:
