@@ -263,6 +263,9 @@ class ZeroShotLLMArm:
                     return dict(self._cache[key])
 
         answer = self._call_gemini(text)
+        # Shows progress on long runs, because each new sentence takes several seconds.
+        if self.stats["api_calls"] % 10 == 0:
+            logger.info("Progress: %d new sentences sent to Gemini so far", self.stats["api_calls"])
 
         # Keeps a signal only when its quote is found in the input.
         signals, evidence = {}, {}
