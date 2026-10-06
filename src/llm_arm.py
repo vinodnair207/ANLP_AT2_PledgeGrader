@@ -143,6 +143,7 @@ class ZeroShotLLMArm:
         self.max_chars = llm.get("max_chars", 8000)
         self.max_retries = llm.get("max_retries", 6)
         self.min_interval = llm.get("min_seconds_between_calls", 4.0)
+        self.max_wait = llm.get("max_wait_seconds", 300)
         self.cache_path = Path(llm.get("cache_path", "outputs/llm_cache.json"))
 
         # Builds the real client only when none is injected.
@@ -229,6 +230,11 @@ class ZeroShotLLMArm:
                 if code is not None and 400 <= code < 500 and code != 429:
                     raise LLMUnavailableError(f"Gemini rejected the request: {exc}") from exc
                 wait = retry_delay(exc, attempt)
+                # A wait of more than a few minutes means the daily quota is used up, so stop now.
+                if wait > self.max_wait:
+                    raise LLMUnavailableError(
+                        f"Daily free tier quota reached (Gemini asked to wait {wait / 3600:.1f} h). "
+                        "Run the same command again after the quota resets") from exc
                 logger.warning("Gemini error %s on attempt %d of %d; waiting %.0f s", code, attempt,
                                self.max_retries, wait)
             except (ValidationError, ValueError, TypeError) as exc:

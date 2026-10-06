@@ -7,7 +7,7 @@ from pathlib import Path
 
 from src import rules
 # The zero shot LLM arm lives in its own module because it carries the prompt and API handling.
-from src.llm_arm import ZeroShotLLMArm
+from src.llm_arm import LLMUnavailableError, ZeroShotLLMArm
 
 
 class RuleBasedArm:

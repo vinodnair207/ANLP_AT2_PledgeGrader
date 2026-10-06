@@ -54,6 +54,9 @@ def main() -> None:
         for label, m in metrics["per_class"].items():
             logger.info("Class %-10s precision %.4f recall %.4f f1 %.4f support %d",
                         label, m["precision"], m["recall"], m["f1"], m["support"])
+    except model.LLMUnavailableError as exc:  # Quota or outage: answers so far are cached.
+        logger.error("%s. Answers so far are cached, so the next run resumes where this one stopped.", exc)
+        raise SystemExit(1)
     except Exception:  # Logs the full traceback, then exits with a readable message.
         logger.exception("Evaluation failed")
         raise SystemExit(1)

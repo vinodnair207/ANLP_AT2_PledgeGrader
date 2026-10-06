@@ -187,3 +187,12 @@ def test_retry_delay_follows_googles_suggestion():
     assert llm_arm.retry_delay(msg, 1) == pytest.approx(56.2)
     overload = errors.ServerError(503, {"error": {"message": "high demand"}})
     assert [llm_arm.retry_delay(overload, a) for a in (1, 2, 3, 5)] == [5, 10, 20, 60]
+
+
+def test_daily_quota_stops_instead_of_waiting_hours(tmp_path):
+    """A 429 asking for a wait of hours means the daily quota is gone, so the arm stops at once."""
+    daily = errors.ClientError(429, {"error": {"message": "Quota exceeded. Please retry in 68457.2s."}})
+    arm, client = make_arm(tmp_path, [daily, answer()])
+    with pytest.raises(LLMUnavailableError, match="Daily free tier quota"):
+        arm.predict(PLEDGE)
+    assert client.calls == 1
