@@ -59,13 +59,17 @@ class ClimateBertArm:
                 "explanation": rules.score_and_explain(text, self.points)["explanation"]}
 
 
-def get_arms(cfg: dict, names=("rules", "climatebert")) -> dict:
-    """Builds the requested arms. ClimateBERT is skipped when no trained model exists yet."""
+def get_arms(cfg: dict, names=("rules", "climatebert"), live: bool = False) -> dict:
+    """Builds the requested arms. ClimateBERT is skipped when no trained model exists yet.
+
+    live=True is for the web app: the LLM arm then answers or fails within seconds
+    instead of waiting out rate limits like the evaluation runs do.
+    """
     arms = {}
     if "rules" in names:
         arms["rules"] = RuleBasedArm(cfg)
     if "climatebert" in names and Path(cfg["climatebert"]["output_dir"]).exists():
         arms["climatebert"] = ClimateBertArm(cfg)
     if "llm" in names:
-        arms["llm"] = ZeroShotLLMArm(cfg)
+        arms["llm"] = ZeroShotLLMArm(cfg, live=live)
     return arms

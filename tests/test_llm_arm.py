@@ -196,3 +196,42 @@ def test_daily_quota_stops_instead_of_waiting_hours(tmp_path):
     with pytest.raises(LLMUnavailableError, match="Daily free tier quota"):
         arm.predict(PLEDGE)
     assert client.calls == 1
+
+
+def test_evidence_spans_give_positions_in_the_original_text(tmp_path):
+    """The web page highlights the LLM's quotes, so each quote comes with its position."""
+    text = "We will reach net zero\nby 2040 across our operations."
+    arm, _ = make_arm(tmp_path, [answer(target_year={"present": True, "evidence": "Net zero by 2040"})])
+    out = arm.predict(text)
+    span = out["evidence_spans"]["target_year"]
+    assert text[span["start"]:span["end"]] == span["evidence"] == "net zero\nby 2040"
+    assert out["evidence_spans"]["scope3"] is None
+    # A cached answer gets the same positions.
+    assert arm.predict(text)["evidence_spans"] == out["evidence_spans"]
+
+
+def test_live_mode_fails_fast_when_gemini_is_rate_limited(tmp_path):
+    """The web app must not keep a user waiting for a rate limit; the other methods are shown instead."""
+    cfg = make_cfg(tmp_path)
+    busy = errors.ClientError(429, {"error": {"message": "Quota exceeded. Please retry in 40s."}})
+    client = FakeClient([busy, answer()])
+    arm = ZeroShotLLMArm(cfg, client=client, live=True)
+    assert arm.min_interval == 0
+    with pytest.raises(LLMUnavailableError, match="busy"):
+        arm.predict(PLEDGE)
+    assert client.calls == 1
+
+
+def test_live_mode_retries_a_short_overload_once(tmp_path):
+    cfg = make_cfg(tmp_path)
+    client = FakeClient([errors.ServerError(503, {"error": {"message": "high demand"}}), answer()])
+    arm = ZeroShotLLMArm(cfg, client=client, live=True)
+    assert arm.predict(PLEDGE)["label"] == "net_zero" and client.calls == 2
+
+
+def test_prediction_contains_everything_the_app_shows(tmp_path):
+    """Label, four signals with quotes and positions, score and explanation."""
+    arm, _ = make_arm(tmp_path, [answer(target_year={"present": True, "evidence": "by 2040"})])
+    out = arm.predict(PLEDGE)
+    assert {"label", "signals", "evidence", "evidence_spans", "score", "explanation"} <= out.keys()
+    assert set(out["signals"]) == set(out["evidence"]) == set(out["evidence_spans"]) == set(llm_arm.SIGNALS)

@@ -112,6 +112,19 @@ def quote_in_text(quote: str, text: str) -> bool:
     return bool(q) and q in _normalise(text)
 
 
+def find_quote_span(quote: str, text: str):
+    """Returns the quote as it appears in the text with its character positions, or None.
+
+    Matching ignores case and differences in spaces or line breaks, so a quote copied
+    across a line break is still found. The web page uses the positions to highlight it.
+    """
+    words = _normalise(quote).strip(" .,;:\"'").split()
+    if not words:
+        return None
+    match = re.search(r"\s+".join(re.escape(w) for w in words), text, re.I)
+    return {"evidence": match.group(0), "start": match.start(), "end": match.end()} if match else None
+
+
 def retry_delay(exc: Exception, attempt: int) -> float:
     """Returns how long to wait before the next attempt.
 
@@ -129,21 +142,31 @@ class ZeroShotLLMArm:
 
     name = "llm"
 
-    def __init__(self, cfg: dict, client: Any = None):
+    def __init__(self, cfg: dict, client: Any = None, live: bool = False):
         """Sets up the Gemini client, the answer cache and the request spacing.
 
         Args:
             cfg: The full project config. The llm and scoring sections are used.
             client: An existing genai.Client. Tests pass a fake client here.
+            live: True for the web app. Requests are not spaced out and are retried
+                only briefly, so a user waits seconds rather than minutes. When Gemini
+                is busy or the quota is used up, LLMUnavailableError is raised quickly
+                and the app shows the other two methods.
         """
         llm = cfg["llm"]
         self.points = cfg["scoring"]
         self.model_name = llm["model"]
         self.temperature = llm.get("temperature", 0.0)
         self.max_chars = llm.get("max_chars", 8000)
-        self.max_retries = llm.get("max_retries", 6)
-        self.min_interval = llm.get("min_seconds_between_calls", 4.0)
-        self.max_wait = llm.get("max_wait_seconds", 300)
+        self.live = live
+        if live:
+            self.max_retries = llm.get("live_max_retries", 2)
+            self.min_interval = 0.0
+            self.max_wait = llm.get("live_max_wait_seconds", 5)
+        else:
+            self.max_retries = llm.get("max_retries", 6)
+            self.min_interval = llm.get("min_seconds_between_calls", 4.0)
+            self.max_wait = llm.get("max_wait_seconds", 300)
         self.cache_path = Path(llm.get("cache_path", "outputs/llm_cache.json"))
 
         # Builds the real client only when none is injected.
@@ -153,7 +176,11 @@ class ZeroShotLLMArm:
                 raise LLMUnavailableError("GEMINI_API_KEY is not set. Add it to the .env file.")
             from google import genai  # Imported lazily so other arms work without the package.
 
-            client = genai.Client(api_key=api_key)
+            from google.genai import types
+
+            # A request that hangs is stopped, so a page never waits indefinitely.
+            timeout_ms = int(llm.get("live_timeout_seconds" if live else "timeout_seconds", 20 if live else 60) * 1000)
+            client = genai.Client(api_key=api_key, http_options=types.HttpOptions(timeout=timeout_ms))
         self.client = client
 
         self._lock = threading.Lock()
@@ -232,6 +259,8 @@ class ZeroShotLLMArm:
                 wait = retry_delay(exc, attempt)
                 # A wait of more than a few minutes means the daily quota is used up, so stop now.
                 if wait > self.max_wait:
+                    if self.live:
+                        raise LLMUnavailableError("Gemini is busy or its free quota is used up") from exc
                     raise LLMUnavailableError(
                         f"Daily free tier quota reached (Gemini asked to wait {wait / 3600:.1f} h). "
                         "Run the same command again after the quota resets") from exc
@@ -251,7 +280,8 @@ class ZeroShotLLMArm:
         """Grades one pledge and returns the shared prediction format.
 
         Returns a dict with method, label, signals (four booleans), score and
-        explanation, plus evidence (one quote per present signal).
+        explanation, plus evidence (one quote per present signal) and
+        evidence_spans (the quote's position in the text, for highlighting).
         Raises ValueError for empty text and LLMUnavailableError when Gemini
         cannot answer. use_cache=False forces a fresh call for consistency checks.
         """
@@ -266,7 +296,7 @@ class ZeroShotLLMArm:
         if use_cache:
             with self._lock:
                 if key in self._cache:
-                    return dict(self._cache[key])
+                    return self._with_spans(self._cache[key], text)
 
         answer = self._call_gemini(text)
         # Shows progress on long runs, because each new sentence takes several seconds.
@@ -292,4 +322,12 @@ class ZeroShotLLMArm:
             with self._lock:
                 self._cache[key] = result
                 self._write_cache()
-        return dict(result)
+        return self._with_spans(result, text)
+
+    @staticmethod
+    def _with_spans(result: dict, text: str) -> dict:
+        """Adds the position of each evidence quote. Positions are not cached, so older cache entries work too."""
+        out = dict(result)
+        out["evidence_spans"] = {k: find_quote_span(q, text) if q else None
+                                 for k, q in result.get("evidence", {}).items()}
+        return out
