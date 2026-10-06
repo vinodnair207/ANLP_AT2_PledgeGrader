@@ -10402,5 +10402,743 @@
    "offsets": "",
    "milestones": "2025"
   }
+ },
+ "0628bf4a3ed3624cb53c06d9b0870e493d15b5d63a1fb780ab6b4baca721c5b1": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has committed to reaching climate neutrality by 2050. This statement lacks information regarding the inclusion of Scope 3 emissions, the use of carbon offsets, and any interim milestones.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "2e33c2f61fe64459e7e01e22809d96efa3e68c6ec2f7e08ff158308db8ff310d": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has committed to a 50% reduction in greenhouse gas emissions from electric generation by 2025. The statement does not mention Scope 3 emissions, the use of carbon offsets, or any interim milestones.",
+  "evidence": {
+   "target_year": "2025",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "0cf2532675c410e47d15c445727e08bdfa01087b49363f625b73673f82e8efed": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "The company has committed to net-zero emissions for its direct operations and energy use, but the statement lacks a target year, interim milestones, information on offsets, and coverage of value chain emissions.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "1f29faeae3c28ec052d90bb001f11ae460fe216947014dca28a22ab5366a0c36": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes an internal analytical tool and does not contain any climate-related emission reduction targets or net zero commitments.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "aa49229d35caa16fb91333c57f601302f0eff59c5819eb02ba61a9a4ce99d943": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text is a general observation about climate activism and does not contain any specific emission reduction or net zero targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "6954f21c083efe60ce6fd70ca9688c2354aa4c06e474071b79836957015677ab": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes the composition of a board of directors and does not contain any climate-related emission targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "c5353fcfa15ef3ecc812c690a3e1a8492a851d4b804f4b5857512bdf2db612ce": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": true,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 50,
+  "explanation": "The company has committed to reducing its CO2 emissions intensity by 50% by 2035, covering the full life cycle of its products. The disclosure lacks information regarding the use of carbon offsets and does not provide any interim milestones to track progress before the 2035 deadline.",
+  "evidence": {
+   "target_year": "2035",
+   "scope3": "life cycle perspective",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "c4e175d9e74c9ad048c5c57ee60ec80b89f9f8783f41afb717e0d2ed7a889f46": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes a product launch and does not contain any climate-related emission reduction targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "ea2548c8960a13a3b4df8ab05c54666bcc1d55543997cb52fd0430a2497ab1e9": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": true,
+   "offsets": false,
+   "milestones": true
+  },
+  "score": 75,
+  "explanation": "The company has committed to reaching carbon neutrality across its entire value chain by 2050, with an interim milestone for its direct operations set for 2030. The text does not provide any information regarding the use or exclusion of carbon offsets.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "scope 1+2+3",
+   "offsets": "",
+   "milestones": "2030"
+  }
+ },
+ "3e3d626a513580ae4dbc25574ef9adc269829ef72441e5c72cc9f0b6e368a1b3": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": true
+  },
+  "score": 50,
+  "explanation": "The text outlines a national commitment for the EU to reach carbon neutrality by 2050 with an interim 2030 reduction target. It lacks specific details regarding the inclusion of Scope 3 emissions or the role of carbon offsets in achieving these goals.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "",
+   "offsets": "",
+   "milestones": "tightening the emissions reduction obligation for 2030"
+  }
+ },
+ "cd3836c8665183245eb7219550bd6cfab158207c065b915a6f9a0a3b9cc009d4": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has committed to a specific percentage reduction in carbon intensity by 2025. The text does not mention Scope 3 emissions, the use of carbon offsets, or any interim milestones.",
+  "evidence": {
+   "target_year": "2025",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "ba3fb5ec677525129d70689927026aabd7cc2560942bb606fb6c83f82023dfae": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": false,
+   "scope3": true,
+   "offsets": true,
+   "milestones": false
+  },
+  "score": 50,
+  "explanation": "The company commits to maintaining annual carbon neutrality for specific operational areas including Scope 3 business travel. The promise lacks a specific target year for completion and does not include interim milestones.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "the company’s employee business travel (Scope 3 Emissions)",
+   "offsets": "Carbon neutrality means eliminating or offsetting all greenhouse gas (GHG) Emissions",
+   "milestones": ""
+  }
+ },
+ "e7e93fe396600889caf917c6c1dcd1e24650114cb066e471ebd4d35650b63502": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes corporate legal restructurings and does not contain any climate-related emission targets or commitments.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "081643b04897e3f01160b26ca9b9060c1b32d2869b971c802b26a40840322553": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "This is a commitment to reduce greenhouse gas emissions by 50% by the year 2030. The text does not mention Scope 3 emissions, the use of carbon offsets, or any interim milestones.",
+  "evidence": {
+   "target_year": "2030",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "04c83670d61255e8f9d3042b0163f1f0303088571797b25dabf40cfcfd0c3a60": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has committed to reaching zero greenhouse gas emissions by the fiscal year 2050. This pledge lacks information regarding the inclusion of supply chain emissions, the use of carbon offsets, and any interim progress milestones.",
+  "evidence": {
+   "target_year": "FY2050",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "5449edc63919a9ec5ff3ee94f88b94416ffbd2eeeb8aebefc9b7b6f213ed7e5b": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes the company's past procurement activities and does not contain any climate-related targets or commitments.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "4c8783c294958f4ed168933bf14d7bb29ac0921c85feaa8fbe3bcab41853d2c8": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "The company claims to have achieved carbon neutrality, but it does not provide a target year, information on scope 3 emissions, details on the use of offsets, or any interim milestones.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "3246c97824f7b98d70f8db6b725275659534b5ccb4e014133e806717fde3ad30": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes corporate governance and meeting procedures and does not contain any climate-related emission targets or commitments.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "052fcf169fc5c78b1a77ec43e7a58e29a4fa7faa7ac88a09e9f6fd0d18a60819": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "The company has set a goal to reduce its railway business carbon emissions by 50% compared to 2014 levels. The text does not specify a target year for completion, nor does it mention scope 3 emissions, the use of offsets, or interim milestones.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "d90ef564a75da4047a18a38f8b8baf96b78c1699c825bcb511a1f9a0f1920106": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": true,
+   "offsets": false,
+   "milestones": true
+  },
+  "score": 75,
+  "explanation": "The company has committed to reaching net zero emissions by 2045, including its full value chain and interim milestones. The text does not provide information regarding the use or exclusion of carbon offsets.",
+  "evidence": {
+   "target_year": "2045",
+   "scope3": "covering all emissions across its value chain",
+   "offsets": "",
+   "milestones": "intermediary targets for 2025 and 2030"
+  }
+ },
+ "b4bd24a986ace5b37d39fa463ffc7e25967fb1280fc14ba346c9c7692f357250": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text discusses general business risks and does not contain any specific climate or emissions reduction targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "107e5dd362f03e9cc55db0761d5c8be107b5a7b61bb65ae05f594e5977b1a1db": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": true,
+   "offsets": false,
+   "milestones": true
+  },
+  "score": 75,
+  "explanation": "The company has committed to reaching net zero emissions for its operations and investments by 2050, with an interim milestone set for 2030. The text does not provide information regarding the use of carbon offsets.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "investment and loan portfolio",
+   "offsets": "",
+   "milestones": "achieving net zero emissions in our groupwide operation by 2030"
+  }
+ },
+ "7d64b61a22eff807f4e09fb4f5e9a8c9d9440452a72fd2e45462b3463e68ed02": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has committed to reaching net zero CO2 emissions by 2021, supported by interim reduction targets for 2025 and 2030. The text does not provide information regarding the inclusion of Scope 3 emissions or the use of carbon offsets.",
+  "evidence": {
+   "target_year": "2021",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "4e605b93400bf842bbaafd15d9f47e9fb116e5f947c0e37adae9c591bd2d485b": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "This is a commitment to reduce carbon emissions by 50% by the year 2050. The statement lacks information regarding Scope 3 emissions, the use of carbon offsets, and any interim milestones.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "fad7350c3b5ab9c4e6f17a4b3c10473de4cec52321bf144f74479a9394c8d1b9": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has committed to achieving carbon neutrality by 2060. The disclosure lacks information regarding the inclusion of Scope 3 emissions, the use of carbon offsets, and any interim milestones to track progress toward the final goal.",
+  "evidence": {
+   "target_year": "2060",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "5a94813219eca9000b0beb34b47db57a52b1dfe94cddf06c86ac36737e39bc34": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes the financial performance and revenue sources of the company and does not contain any climate-related emission targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "091c9701b0e3aa7bd48ef87b660f60bb3d6d2f6321928543b84840e48dfb5f5d": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "Nigeria has committed to reducing its greenhouse gas emissions by a specific percentage by 2030. The disclosure lacks information regarding the inclusion of Scope 3 emissions, the use of carbon offsets, or any interim milestones leading up to the 2030 target.",
+  "evidence": {
+   "target_year": "2030",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "c2185bf9e0db757c03c8f34e2455199488488f4cb1ce2c3155510c1655c95492": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text discusses a potential strategy for excluding certain sectors from financing but does not set any specific emission reduction or net zero targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "6e72c85f1fb10a22c9e021eaeaddf0f671862f3ae996c0f8cc03ecf398ac61ea": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes a general business strategy focused on innovation and does not contain any specific climate or emissions reduction targets.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "a784fac667017508ab351a577abcb137521b67e21879fa5280a9ab2578015beb": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company has set a goal to achieve carbon neutrality by 2039. The statement lacks information regarding the inclusion of supply chain emissions, the use of carbon offsets, or any interim progress targets.",
+  "evidence": {
+   "target_year": "2039",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "8ed1882331f661627db5b01d415ac2d4097fd529265109d7b2e8c0db1f273c29": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text describes the launch of digital services for customers and does not contain any climate-related emission targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "b9cd7619d6356de58d3afadd6735694f6d87e0c1df81f6caa5537b70b3085c67": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text discusses business risks related to climate policy and public pressure rather than making a commitment to reduce emissions. Consequently, no targets or credibility signals are present.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "87aa96290f3b6e41a56796dc9d0d519580914f74448e24eb859a404e52cd28e9": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The text outlines a specific goal to reduce emissions by 95% by 2050. It lacks information regarding Scope 3 emissions, the use of carbon offsets, and any interim milestones.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "8196a90052d8cd347981452984e2c7d8beb6a2da35330961df5120f4cef9c8e5": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text expresses a general commitment to social responsibility but does not contain any specific emission reduction or net zero targets. Consequently, all credibility signals are missing.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "574a25761184e07d808ed0980ad59cadfa3632a97f2f4b5ecbd90cb5fc2ba3a2": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "This text is a cross-reference to other sections of a report and does not contain any climate-related emission targets or promises.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "ff598a5ff36fc28912f46934f3f9c8a5ae2edf23fd7776055c6bcccb80e56840": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "This is a commitment to reduce emissions by a specific percentage by 2030. It lacks information regarding the inclusion of supply chain emissions, the use of carbon offsets, or any interim progress markers.",
+  "evidence": {
+   "target_year": "2030",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "79b5c1fb5214455b7d5e65d3fa181b64a1213ee08619c4e328641920590c2331": {
+  "method": "llm",
+  "label": "reduction",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The company set a target to reduce its Scope 1 and 2 emissions by 50% by 2020. The disclosure lacks information regarding Scope 3 emissions, the use of carbon offsets, and any future milestones beyond the completed 2020 goal.",
+  "evidence": {
+   "target_year": "2020",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "abb2c2f72b7cde49d60ee011a19966520e9fa607fa1da537e572bf704810aa35": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": true
+  },
+  "score": 50,
+  "explanation": "This is a national commitment to reach net zero emissions by 2060 with an interim milestone to peak emissions by 2030. The statement does not provide information regarding the inclusion of Scope 3 emissions or the use of carbon offsets.",
+  "evidence": {
+   "target_year": "2060",
+   "scope3": "",
+   "offsets": "",
+   "milestones": "peak carbon dioxide emissions before 2030"
+  }
+ },
+ "29a83ab025fa3ce0cde9e11dbff56a5bc78f4fbd137e3204dc39040aea13b17d": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 25,
+  "explanation": "The text commits to carbon neutrality by 2030 with a specific reduction target. It lacks information regarding Scope 3 emissions, the use of carbon offsets, and any interim milestones.",
+  "evidence": {
+   "target_year": "2030",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "c8ba3f4a75e6d4b773d1e649af52e29770bd5527b384171a9ffa93df8e667ef4": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": true,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 50,
+  "explanation": "Scotiabank has committed to reaching net-zero emissions across its operations and financed activities by 2050. The disclosure lacks information regarding the use of carbon offsets and does not provide any interim milestones to track progress before the final target year.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "net-zero financed emissions",
+   "offsets": "",
+   "milestones": ""
+  }
+ },
+ "b9727619ba56a16b76943f6b8eaef75175e6a5fa970e4ab618fb213b459a053d": {
+  "method": "llm",
+  "label": "net_zero",
+  "signals": {
+   "target_year": true,
+   "scope3": false,
+   "offsets": true,
+   "milestones": true
+  },
+  "score": 75,
+  "explanation": "This text outlines a national commitment to achieve climate neutrality by 2050, supported by an interim 2030 reduction target and a mention of carbon sequestration. It does not explicitly mention the inclusion of Scope 3 value chain emissions.",
+  "evidence": {
+   "target_year": "2050",
+   "scope3": "",
+   "offsets": "remaining greenhouse gas emissions are offset by CO2 sequestration and the eventual use of CCS-CCU",
+   "milestones": "55% by 2030"
+  }
  }
 }

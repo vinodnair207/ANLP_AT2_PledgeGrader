@@ -1,0 +1,24 @@
+{
+  "n_sentences": 30,
+  "runs": 3,
+  "label_agreement": 1.0,
+  "score_agreement": 1.0,
+  "signal_agreement": {
+    "target_year": 1.0,
+    "scope3": 1.0,
+    "offsets": 1.0,
+    "milestones": 1.0
+  },
+  "run": {
+    "model": "gemini-3.1-flash-lite",
+    "prompt_version": "v1",
+    "temperature": 0.0,
+    "run_date": "2026-10-06",
+    "api_calls": 90,
+    "input_tokens": 41751,
+    "output_tokens": 13638,
+    "hallucinated_quotes": 0,
+    "avg_input_tokens_per_call": 463.9,
+    "avg_output_tokens_per_call": 151.5
+  }
+}
