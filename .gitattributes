@@ -1,0 +1,2 @@
+# Keeps line endings inside CSV text fields unchanged on every operating system.
+*.csv -text

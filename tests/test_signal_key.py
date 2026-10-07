@@ -92,3 +92,16 @@ def test_shared_workbook_uses_tab_names_and_skips_guide(tmp_path):
     long = sk.load_labelled_sheets([path])
     assert sorted(long["rater"]) == ["Member 1", "Member 2"]
     assert sk.agreement(long)["target_year"]["n_raters"] == 2
+
+
+def test_same_labeller_in_two_workbooks_is_rejected(tmp_path):
+    columns = ["id", "assigned_to", "text", *sk.SIGNALS, "notes"]
+    paths = []
+    for name in ("partial.xlsx", "final.xlsx"):
+        path = tmp_path / name
+        with pd.ExcelWriter(path) as writer:
+            pd.DataFrame([[1, "ALL", "sentence 1", "Y", "N", "Y", "N", None]], columns=columns).to_excel(
+                writer, sheet_name="Anna", index=False)
+        paths.append(path)
+    with pytest.raises(ValueError, match="Duplicate labels"):
+        sk.load_labelled_sheets(paths)

@@ -45,7 +45,7 @@ def main() -> None:
     utils.setup_logging()
     cfg = utils.load_config()
     out = Path(cfg["paths"]["predictions_dir"])
-    a, b = (pd.read_csv(out / f"{m}_predictions.csv") for m in (args.a, args.b))
+    a, b = (utils.read_predictions(out / f"{m}_predictions.csv") for m in (args.a, args.b))
     if not (a["text"] == b["text"]).all():
         raise SystemExit("Prediction files are not aligned on the same test rows.")
     result = paired_bootstrap(a["gold"], a["pred"], b["pred"], cfg["bootstrap"]["n_resamples"], cfg["seed"])

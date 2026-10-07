@@ -18,3 +18,12 @@ def test_identical_methods_are_not_significant():
     gold = rng.integers(0, 3, 300)
     pred = rng.integers(0, 3, 300)
     assert paired_bootstrap(gold, pred, pred, 200, 42)["p_value"] == 1.0
+
+
+def test_read_predictions_ignores_line_ending_differences(tmp_path):
+    """The same sentence saved with Windows and Unix line endings must compare as equal."""
+    from src import utils
+    windows, unix = tmp_path / "a.csv", tmp_path / "b.csv"
+    windows.write_bytes(b'text,gold,pred\n"line one\r\nline two",none,none\n')
+    unix.write_bytes(b'text,gold,pred\n"line one\nline two",none,none\n')
+    assert (utils.read_predictions(windows)["text"] == utils.read_predictions(unix)["text"]).all()
