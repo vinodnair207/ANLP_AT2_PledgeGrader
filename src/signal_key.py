@@ -144,7 +144,8 @@ def signals_for_method(method: str, texts: list, predictions_dir: Path) -> pd.Da
     path = predictions_dir / f"{method}_signals.csv"
     if not path.exists():
         raise FileNotFoundError(f"{path} is required for method '{method}' (columns: text, {', '.join(SIGNALS)})")
-    table = pd.read_csv(path).drop_duplicates("text").set_index("text")
+    table = utils.read_predictions(path).drop_duplicates("text").set_index("text")
+    texts = [utils.normalise_text(t) for t in texts]
     missing = [t for t in texts if t not in table.index]
     if missing:
         raise ValueError(f"{path} lacks {len(missing)} of the {len(texts)} answer key sentences")

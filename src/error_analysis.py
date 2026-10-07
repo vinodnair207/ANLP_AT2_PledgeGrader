@@ -55,7 +55,7 @@ def load_predictions(methods: list, out_dir: Path) -> pd.DataFrame:
     """
     merged = None
     for method in methods:
-        frame = pd.read_csv(out_dir / f"{method}_predictions.csv")[["text", "gold", "pred"]]
+        frame = utils.read_predictions(out_dir / f"{method}_predictions.csv")[["text", "gold", "pred"]]
         frame = frame.rename(columns={"pred": f"pred_{method}"})
         if merged is None:
             merged = frame
