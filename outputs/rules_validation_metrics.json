@@ -1,0 +1,7 @@
+{
+  "method": "rules",
+  "split": "validation",
+  "n": 516,
+  "accuracy": 0.9380,
+  "macro_f1": 0.9356
+}
