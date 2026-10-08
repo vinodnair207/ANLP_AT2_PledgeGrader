@@ -1,0 +1,8 @@
+{
+  "observed_diff": 0.041662229254819105,
+  "ci95_low": 0.01693693657171969,
+  "ci95_high": 0.06765160651920608,
+  "p_value": 0.0008,
+  "method_a": "rules",
+  "method_b": "climatebert"
+}
