@@ -1,0 +1,47 @@
+{
+  "target_year": {
+    "precision": 1.0,
+    "recall": 0.8587,
+    "f1": 0.924,
+    "accuracy": 0.87,
+    "support_present": 92,
+    "tp": 79,
+    "fp": 0,
+    "fn": 13,
+    "tn": 8
+  },
+  "scope3": {
+    "precision": 0.9375,
+    "recall": 0.7143,
+    "f1": 0.8108,
+    "accuracy": 0.93,
+    "support_present": 21,
+    "tp": 15,
+    "fp": 1,
+    "fn": 6,
+    "tn": 78
+  },
+  "offsets": {
+    "precision": 0.5,
+    "recall": 0.25,
+    "f1": 0.3333,
+    "accuracy": 0.96,
+    "support_present": 4,
+    "tp": 1,
+    "fp": 1,
+    "fn": 3,
+    "tn": 95
+  },
+  "milestones": {
+    "precision": 0.7826,
+    "recall": 0.9,
+    "f1": 0.8372,
+    "accuracy": 0.93,
+    "support_present": 20,
+    "tp": 18,
+    "fp": 5,
+    "fn": 2,
+    "tn": 75
+  },
+  "macro_f1": 0.7263
+}
