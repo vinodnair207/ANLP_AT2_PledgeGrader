@@ -18,6 +18,7 @@ paths:
   predictions_dir: outputs    # Stored evaluation outputs used to build report tables
 climatebert:                  # Fine tuning settings for the transformer arm
   base_model: climatebert/distilroberta-base-climate-f   # NEEDS VERIFICATION on the Hub
+  uploaded_model: Doan16/pledgegrader-climatebert
   output_dir: models/climatebert
   max_length: 128
   epochs: 4
