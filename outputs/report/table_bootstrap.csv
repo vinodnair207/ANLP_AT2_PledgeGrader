@@ -1,0 +1,4 @@
+method_a,method_b,macro_f1_difference_b_minus_a,ci95_low,ci95_high,p_value
+Fine tuned ClimateBERT,Zero shot LLM,-0.0127,-0.0371,0.0108,0.3104
+Rule based baseline,Fine tuned ClimateBERT,0.0417,0.0169,0.0677,0.0008
+Rule based baseline,Zero shot LLM,0.0289,0.0079,0.0514,0.0062
