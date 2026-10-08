@@ -1,0 +1,54 @@
+{
+  "method": "llm",
+  "n": 517,
+  "accuracy": 0.9497,
+  "macro_precision": 0.9468,
+  "macro_recall": 0.9422,
+  "macro_f1": 0.9426,
+  "per_class": {
+    "none": {
+      "precision": 0.9784,
+      "recall": 0.9913,
+      "f1": 0.9848,
+      "support": 229
+    },
+    "net_zero": {
+      "precision": 0.8774,
+      "recall": 0.9645,
+      "f1": 0.9189,
+      "support": 141
+    },
+    "reduction": {
+      "precision": 0.9846,
+      "recall": 0.8707,
+      "f1": 0.9242,
+      "support": 147
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "none",
+      "net_zero",
+      "reduction"
+    ],
+    "rows_are": "gold",
+    "columns_are": "predicted",
+    "matrix": [
+      [
+        227,
+        2,
+        0
+      ],
+      [
+        3,
+        136,
+        2
+      ],
+      [
+        2,
+        17,
+        128
+      ]
+    ]
+  }
+}

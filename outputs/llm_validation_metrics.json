@@ -1,0 +1,66 @@
+{
+  "split": "validation",
+  "n": 100,
+  "accuracy": 0.95,
+  "macro_precision": 0.9484,
+  "macro_recall": 0.9506,
+  "macro_f1": 0.9478,
+  "per_class": {
+    "none": {
+      "precision": 0.9487,
+      "recall": 1.0,
+      "f1": 0.9737,
+      "support": 37
+    },
+    "net_zero": {
+      "precision": 0.8966,
+      "recall": 0.963,
+      "f1": 0.9286,
+      "support": 27
+    },
+    "reduction": {
+      "precision": 1.0,
+      "recall": 0.8889,
+      "f1": 0.9412,
+      "support": 36
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "none",
+      "net_zero",
+      "reduction"
+    ],
+    "rows_are": "gold",
+    "columns_are": "predicted",
+    "matrix": [
+      [
+        37,
+        0,
+        0
+      ],
+      [
+        1,
+        26,
+        0
+      ],
+      [
+        1,
+        3,
+        32
+      ]
+    ]
+  },
+  "run": {
+    "model": "gemini-3.1-flash-lite",
+    "prompt_version": "v1",
+    "temperature": 0.0,
+    "run_date": "2026-10-05",
+    "api_calls": 97,
+    "input_tokens": 46079,
+    "output_tokens": 15362,
+    "hallucinated_quotes": 0,
+    "avg_input_tokens_per_call": 475.0,
+    "avg_output_tokens_per_call": 158.4
+  }
+}
