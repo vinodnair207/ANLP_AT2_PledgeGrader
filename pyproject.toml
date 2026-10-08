@@ -17,6 +17,7 @@ dependencies = [
     "google-genai>=1.0",
     "python-dotenv>=1.0",
     "pydantic>=2.0",
+    "accelerate>=1.15.0",
 ]
 
 [dependency-groups]
