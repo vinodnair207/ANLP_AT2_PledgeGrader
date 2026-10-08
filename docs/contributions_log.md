@@ -9,7 +9,13 @@ Purpose: record who built what. The report contributions table and the SPARKPlus
 | Data and evaluation lead | TBC | Dataset splits, metrics pipeline, bootstrap test, error review |
 | Rule based baseline owner | TBC | src/rules.py, signal patterns, tests |
 | ClimateBERT fine tuning owner | TBC | src/train_climatebert.py, tuned model on the Hugging Face Hub |
-| LLM prompting owner | TBC | Zero shot prompt template, src arm, hallucination checks |
+| LLM prompting owner | Chaitya Nanavati | LLM arm, prompt and tests
+Validation run (development only)
+Test run: accuracy 0.950, macro F1 0.943
+Consistency check: 100% agreement
+Live mode and quote positions for the app
+Signal labels (Chaitya tab, AI-assisted and reviewed)
+Separate Gemini key for the app |
 | Web application and UX owner | TBC | Streamlit app, example selector, screenshots, deployment |
 | Coordination and report lead | TBC | Report structure, tables, reference check, submission |
 
