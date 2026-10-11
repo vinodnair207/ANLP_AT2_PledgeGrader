@@ -1,0 +1,79 @@
+{
+  "n_rows": 517,
+  "methods": [
+    "rules",
+    "climatebert",
+    "llm"
+  ],
+  "all_correct": 461,
+  "all_wrong": 7,
+  "methods_disagree": 49,
+  "per_method": {
+    "rules": {
+      "errors": 40,
+      "error_rate": 0.0774,
+      "unique_errors": 17,
+      "by_flag": {
+        "long_text": {
+          "rows_with_flag": 47,
+          "error_rate_with_flag": 0.1489,
+          "error_rate_without_flag": 0.0702
+        },
+        "has_line_break": {
+          "rows_with_flag": 133,
+          "error_rate_with_flag": 0.1654,
+          "error_rate_without_flag": 0.0469
+        },
+        "non_english": {
+          "rows_with_flag": 11,
+          "error_rate_with_flag": 0.3636,
+          "error_rate_without_flag": 0.0711
+        }
+      }
+    },
+    "climatebert": {
+      "errors": 20,
+      "error_rate": 0.0387,
+      "unique_errors": 9,
+      "by_flag": {
+        "long_text": {
+          "rows_with_flag": 47,
+          "error_rate_with_flag": 0.1064,
+          "error_rate_without_flag": 0.0319
+        },
+        "has_line_break": {
+          "rows_with_flag": 133,
+          "error_rate_with_flag": 0.0902,
+          "error_rate_without_flag": 0.0208
+        },
+        "non_english": {
+          "rows_with_flag": 11,
+          "error_rate_with_flag": 0.0,
+          "error_rate_without_flag": 0.0395
+        }
+      }
+    },
+    "llm": {
+      "errors": 26,
+      "error_rate": 0.0503,
+      "unique_errors": 7,
+      "by_flag": {
+        "long_text": {
+          "rows_with_flag": 47,
+          "error_rate_with_flag": 0.1277,
+          "error_rate_without_flag": 0.0426
+        },
+        "has_line_break": {
+          "rows_with_flag": 133,
+          "error_rate_with_flag": 0.1128,
+          "error_rate_without_flag": 0.0286
+        },
+        "non_english": {
+          "rows_with_flag": 11,
+          "error_rate_with_flag": 0.0909,
+          "error_rate_without_flag": 0.0494
+        }
+      }
+    }
+  }
+}

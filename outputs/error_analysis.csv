@@ -1,0 +1,163 @@
+row,text,gold,pred_rules,pred_climatebert,pred_llm,correct_rules,correct_climatebert,correct_llm,methods_disagree,n_chars,long_text,has_line_break,non_english
+0,"The emissions target for 2040 
+2. The Northern Ireland departments must ensure that the net Northern Ireland
+emissions account for the year 2040 is in line with the overall target for the year
+2050.
+The emissions target for 2030 has already been set. 
+3. The Northern Ireland departments must ensure that the net Northern Ireland
+emissions account for the year 2030 is at least 48% lower than the baseline.",reduction,reduction,reduction,net_zero,True,True,False,True,406,False,True,False
+23,"'深圳将坚决贯彻落实习近平总书记关于碳达峰目标与碳中和愿景的重要宣示要求，按照广东省的统一部署，全力以赴，聚力攻坚应对气候变化重点难点工作，加快确定深圳市碳达峰目标，高标准编制好应对气候变化专项规划和碳达峰行动方案，强化统筹，重点推进能源、工业、建筑、交通等领域低碳化发展'
+Shenzhen has stated that it will resolute implement the goal of carbon peaking and carbon neutrality as declared by President Xi.
+
+
+'　　去年，中国宣布力争2030年前实现碳达峰、2060年前实现碳中和。今年，深圳市委、市政府在深圳市第七次党代会和深圳市七届人大一次会议上，作出了把碳达峰、碳中和纳入生态文明建设整体布局、引领绿色发展的重要部署。' Shenzhen Municipality made important arrangements to incorporate China's goals of carbon peaking by 2030 and carbon neutrality by 2060.
+",net_zero,net_zero,none,net_zero,True,False,True,True,515,True,True,False
+33,"An update to the existing Corporate Energy Plan was in development in 2020 and will be completed in 2021, in coordination with the major operating business units that use the majority of corporate energy  This will be a ten-year plan to focus The City’s energy use and emissions with an interim goal of 40 per cent GHG reduction by 2030 on the path to our 2050 climate goal. ",reduction,reduction,reduction,net_zero,True,True,False,True,375,False,False,False
+38,Greenhouse gas emissions (vs fiscal 2019): 1.28 million t-co2e (-20%) (Pg. 75),reduction,none,reduction,reduction,False,True,True,True,78,False,False,True
+40,"To facilitate the change towards net zero, in January 2020, we also announced the launch of our first green bond, issued by National Grid Electricity Transmission plc.",none,net_zero,none,net_zero,False,True,False,True,167,False,False,False
+43,"""Reduce CO2 emissions from power generation by 50% by fiscal 2025 (reduction of over 25 million tonnes from fiscal 2013 levels) and maintain industry-leading reduction levels."". (The Kansai Electric Power Group, Zero Carbon Roadmap, March 25 2022, pg. 3)",reduction,net_zero,reduction,reduction,False,True,True,True,254,False,False,False
+44,"""Switzerland submitted its “nationally determined contribution” (NDC), in which it set a total GHG emissions reduction target of at least 50% by 2030 compared with 1990 levels. Switzerland’s long-term goal is to reduce its GHG emissions to net zero by 2050. ""
+",net_zero,net_zero,reduction,net_zero,True,False,True,True,260,False,True,False
+45,"In particular, as a top priority of the Sustainability strategy, we have developed a carbon neutral growth strategy and are working on detailed action plans.",none,none,none,net_zero,True,True,False,True,157,False,False,False
+49,"In 2020, Lindt & Sprungli reached a milestone in the reduction of CO2 emissions. In the manufacturing process per ton of production compared to 2015, they achieved over 20% reduction in greenhouse gas emissions.
+Set a Science-Based Target by 2023 with a long-term goal to reach net-zero emissions.",reduction,net_zero,net_zero,net_zero,False,False,False,False,297,False,True,False
+54,"As part of our science-based target commitment, we seek to reduce absolute Scope 1 and Scope 2 carbon emissions 100% by 2030, against a 2015 baseline, then move to carbon positivity, meaning our carbon capture is greater than our carbon emission.",net_zero,reduction,reduction,net_zero,False,False,True,True,246,False,False,False
+56,"In terms of mid- to long-term CO2 emission reduction targets for business activities, we aim for a 30% reduction in
+FY2030 (compared to FY2018) and a goal of “net-zero
+CO2 emissions” by 2050. ",net_zero,net_zero,reduction,net_zero,True,False,True,True,192,False,True,False
+73,"Long-term effort to turning the overall product lifecycle carbon neutral
+
+in a table*",reduction,net_zero,net_zero,net_zero,False,False,False,False,85,False,True,False
+89,They also previously set the objective of covering 100% of their own electricity needs with renewable energies from 2020 onward. This goal has been achieved. ,none,none,reduction,none,True,False,True,True,158,False,False,False
+92,"HP will be carbon neutral in its operations by 2025 and reduce Scope 1, 2, and 3 greenhouse gas (GHG) emissions by 50% on an absolute basis by 2030, compared to 2019.",net_zero,net_zero,reduction,net_zero,True,False,True,True,166,False,False,False
+105,"Going forward, we will intensify our activities based on Environmental Future Vision 2050, a long-term vision looking ahead to the year 2050. As part of the Vision’s response to climate change, which calls for a contribution encompassing Toshiba Group's entire value chain, we aim to achieve a 50% reduction in greenhouse gas emissions generated within the Group value chain by FY2030 compared to FY2019 level and to contribute to realizing a net zero emissions society by 2050.",reduction,net_zero,net_zero,net_zero,False,False,False,False,478,False,False,False
+114,"""We will invest EUR7 billion until 2030 to reduce our greenhouse gas emissions to under 29 million tonnes by 2030 and thereby commit to the Science-Based Targets initiative (SBTi)."" Total emissions from 2020 seems to range from 27-39 MTCO2e across reports from the company, where scope 3 is measured inconsistently: Deutsche Post DHL changed from a tank-to-wheel to a well-to-wheel calculation approach to estimate its GHG emissions in March 2021. According to the company, this approach led to an increase of its total emissions in 2020 from 27.38 to 33.3 MtCO2e, of which 8.0 MtCO2e are scope 1, 0.2 MtCO2e scope 2 (market-based) and 25.0 MtCO2e scope 3 emissions. A further breakdown of emissions is not yet available. The new estimates reported by Deutsche Post are lower than the sum of 39.10 MtCO2e in the company’s ESG Statbook, so it remains unclear whether all emission sources are included. 
+
+""We will invest €7 billion until 2030 in clean operations to reduce our emissions from 33 MT in 2020 to under 29 MT by 2030""
+Source: 
+Interim targets for 2025 relate to carbon intensity and zero emissions vehicles rather than emissions reductions, but are not set as distinct targets.",reduction,net_zero,reduction,reduction,False,True,True,True,1187,True,True,False
+122,"The energy sector is the highest contributor of GHG in Liberia emanating mainly from the use of traditional fuels such as firewood, charcoal and palm oil and the use of fossil fuels,
+especially petroleum products. To reduce the reliance on traditional fuel and increase the use of modern and renewable energy sources, the National Energy Policy (2009) was
+developed with a set of goals targeted at maximizing efficiency, minimizing costs and adverse environmental impacts as principle of extending energy access to all Liberians.
+Most recently, Liberia’s Initial National Communication (2013) reinforces the National Energy Policy with additional long-term targets and related activities, which includes:  
+• Reducing GHGs by at least 10% by 2030
+• Improving energy efficiency by at least 20% by 2030
+• Raising share of renewable energy to at least 30% of electricity production and
+10% of overall energy consumption by 2030
+• Replacing cooking stoves with low thermal efficiency (5-10%) with the higherefficiency (40%) stoves.
+The long-term strategy of Liberia is to achieve carbon neutrality by 2050. The strategic
+options for mitigation considered under the INDC are the energy sector (electricity,
+transport) and the waste sector. The Waste Sector focuses on solid waste disposal on land.
+In 2000, the waste sector accounted for about 0.60% of Liberia’s national total CO2 eq
+emissions. A significant subcategory is CH4 emissions from solid waste disposal sites
+(SWDS) on land, which contributed 91.7%. CH4 mitigation targets will include landfill
+recovery, waste incineration with energy recovery, composting of organic waste,
+controlled wastewater treatment, and recycling and waste minimization.",net_zero,net_zero,none,net_zero,True,False,True,True,1702,True,True,False
+152,Our new sustainability strategy places a strong emphasis on improving our environmental performance by reducing emissions as well as improving products and packaging.,none,reduction,none,none,False,True,True,True,166,False,False,False
+153,"From the 2015 Bremischen climate and energy law. It appears the target was missed , and no further targets have been given.
+",reduction,none,reduction,none,False,True,False,True,124,False,True,False
+157,"• Reduce absolute Scopes 1 and 2 GHG emissions 50% by 2030 from a 2020 base year;
+• Reduce absolute Scope 3 GHG emissions from purchased goods and services, upstream transportation and distribution, use of sold products and end-of-life treatment of sold products 50% by 2030 from a 2020 base year;
+• Have 20% of our suppliers by spend covering purchased goods and services adopt SBTs by 2025. 
+Have ""carbon neutral operations"" by 2030.
+(p11)",reduction,net_zero,reduction,net_zero,False,True,False,True,441,False,True,False
+174,"On the path to carbon neutrality, Steel Dynamics is targeting a 20% Scope 1 and Scope 2 combined greenhouse gas (GHG) emissions intensity reduction across its EAF steel mills by 2025 and a 50% reduction by 2030, compared to a 2018 baseline. Additionally, the company plans to increase the use of renewable electrical energy for its EAF steel mills to 10% by 2025 and 30% by 2030.
+
+",reduction,net_zero,reduction,net_zero,False,True,False,True,381,False,True,False
+180,The net-zero ambition builds on U. S. Steel’s existing goal to reduce greenhouse gas emissions intensity by 20% across the company’s global footprint by 2030. ,reduction,net_zero,net_zero,net_zero,False,False,False,False,159,False,False,False
+219,"To ensure that we continuously advance our sustainability program, in 2020 we established a five-year, enterprisewide set of goals called Achieve 2025. ",none,none,reduction,none,True,False,True,True,152,False,False,False
+244," We’re lucky to have incredible real estate, finance, and facilities teams that aligned with our sustainability goals. Because of these relationships, we were able to reduce carbon intensity by more than one-third in our offices and data centers. Through encouraging a culture of low-carbon commuting for our employees and focusing on why commute choices matter, we were also able to reduce the emissions of the average employee’s commute by more than one-third, too.
+
+'Another successful step along our road to net-zero emissions was working collaboratively with different areas of the business to put an internal price on carbon. Essentially, we allocate carbon costs across each operational function—for example, our data centers or office buildings—which means they are responsible for their emissions. In the long haul, it creates a financial incentive to make better business decisions based on carbon impacts. We then use those carbon-use funds to invest in renewable energy and carbon offsets to help us meet our goals.'
+48% reduction in carbon intensity per square foot of office space since FY15
+48% reduction in carbon intensity per total revenue since FY15
+62% reduction in commute and remote work emissions per employee since FY16
+50% reduction in data center carbon intensity per subscription revenue since FY15
+Source: ",reduction,net_zero,net_zero,net_zero,False,False,False,False,1334,True,True,False
+265,"JetBlue is among the aviation community committed to these targets to achieve carbon neutral growth within the industry:
+An average improvement in fuel efficiency of 1.5% per year from 2009 to 2020
+A cap on net aviation CO2 emissions from 2020 (carbon-neutral growth)
+A reduction in net aviation CO2 emissions of 50% by 2050, relative to 2005 levels ",net_zero,reduction,net_zero,net_zero,False,True,True,True,350,False,True,False
+269,Based on our track record and plans up to 2030 we are confident that we are well-placed to make significant progress beyond 2030 and up to 2050. (Pg. 27),net_zero,none,net_zero,none,False,True,False,True,153,False,False,False
+272,"An interim goal would have to be set up by 2030 to be successful
+of minus 65 percent greenhouse gas emissions can be achieved, as the Stuttgart city council decided in 2019.",reduction,none,reduction,reduction,False,True,True,True,173,False,True,False
+278,Focus on emission reduction in the whole process of production.,none,reduction,none,none,False,True,True,True,63,False,False,False
+287,"Suriname's second NDC states that ""Suriname's forests act as a carbon sink of global significance, making it a carbon-negative country."" President Santhoki also referred to Suriname as a carbon negative country at the COP26 in Glasgow 
+
+The country's most recent GHG Inventory data is from 2008. The 2nd National Communication (2016) and the 2nd NDC (2020) both use this data, but provide different data points. It is not possible to verify whether Suriname is indeed a carbon negative country.",net_zero,net_zero,net_zero,none,True,True,False,True,494,False,True,False
+290,"As per the plan, the largest emission reduction efforts (and investment) will be targeted towards energy (in various forms and usage), which currently contributes 72% of total emissions. Vehicular emissions and emissions from waste contribute the remaining emissions. 
+
+The plan targets 30% reduction in emissions by 2030, 44% by 2040, and 100% by 2050, compared to emission levels in 2019.
+",reduction,reduction,reduction,net_zero,True,True,False,True,391,False,True,False
+298,"(b) by 2030, at least 53% below the levels that were emitted in 2005; and
+
+",reduction,none,reduction,reduction,False,True,True,True,75,False,True,False
+318,"The projected changes are presented for the period 2021-2050 relative to the 1971-2000 baseline period.
+- page 8",reduction,none,reduction,none,False,True,False,True,112,False,True,False
+328,"Economy-wide reduction GHG emission of 30% when compared to BAU scenario by 2030
+
+The reference year for the target is 2030 and the target is expressed both as relative to a BAU scenario for that year, and relative to 2010 baseline emissions.(Updated NDC 2022, p.43)
+
+- It is however important to highlight that a reduction on emissions from the LULUCF sector plays a major role in achieving the set goals and that the country’s longer-term ambition is to reach net zero emissions from the LULUCF sector by 2045.",reduction,net_zero,reduction,net_zero,False,True,False,True,512,True,True,False
+331,"Following the sustainable scenario, which implies accentuating reduction measures with greater abatement capacity and establish innovative tools for
+implementation as described below, the volume of emissions expected to 2030 will be 4.5 MtCO2eq, which represents a reduction of 65.3% MtCO2eq compared to year 1990, reaching 1.4 MtCO2eq in 2050, and reaching neutrality through compensation mechanisms.",net_zero,reduction,reduction,net_zero,False,False,True,True,401,False,True,False
+351,Reduce GHG emissions (Scopes 1+2) (on a market basis*1) by 55% by FY2030 and to zero by FY2050 (compared to FY2017).,reduction,reduction,reduction,net_zero,True,True,False,True,116,False,False,False
+352,"In the company's report "" Corporate responsibility "" there is no clear commitment to Net zero target or even the year to achieve this goal, nor  mentioned in the letter from the chairman of the company.  'Reduce global absolute GHG emissions, Scopes 1 and 2, to 3.4 kT CO2e by 2031, which represents a 95% reduction compared to our 2021 baseline.' (p49)",reduction,net_zero,net_zero,reduction,False,False,True,True,353,False,False,False
+353,"Comparativement à 2003, d’ici 2020 puis 2030 et 2050, réduire de 30% puis 50% et 75% les niveaux par habitant d'émission de gaz à effet de serre et de consommation finale d’énergie -- ",reduction,none,reduction,reduction,False,True,True,True,184,False,False,True
+363,"""short to medium-term target, target year 2030 -30%, base year 2015. Scope: ships & aircrafts. ",reduction,none,reduction,reduction,False,True,True,True,95,False,False,True
+367,"40% Reduction in the Council's Greenhouse gas emissions by 2030 part of 2019-2024 plan
+Our vision is for a zero carbon City with all energy coming from renewable sources",reduction,net_zero,net_zero,reduction,False,False,True,True,169,False,True,False
+380,"5% energy efficiency improvement target for 2016-2020,
+Baseline is set as the average equity Scope 1 and 2 emissions over 2016-2020 and may be adjusted (up or down) for potential equity changes in producing or sanctioned assets, with an FID prior to 2021.",reduction,none,reduction,reduction,False,True,True,True,255,False,True,False
+381,"""Through our flagship $1 billion Ambition Zero Carbon programme we are on track to reduce greenhouse gas emissions from our global operations (Scope 1 and 2) by 98% by 2026 (from 2015 baseline) and halve our entire value chain footprint by 2030 on the way to a 90% reduction by 2045 (from 2019 baseline).""",reduction,net_zero,reduction,reduction,False,True,True,True,305,False,False,False
+394,"""50% reduction in the carbon emissions of electricity delivered to DTE Electric customers."" by 2030 on 2005 baseline
+At 25% of energy they provide to come from renewable sources by 2030.
+
+Like all big transformations, the shift to cleaner energy won’t happen overnight, but it has already begun. DTE has 18 wind parks and 32 solar parks, and by 2023, we will have cut carbon emissions by 32% since 2005.
+
+Our bold net zero carbon emissions goal sets the framework for DTE to go beyond its existing commitments to reduce carbon emissions 50% by 2028 and 80% by 2040, ensuring our medium- and long-term plans align with the scientific consensus around the importance of achieving significant economy-wide emissions reduction by 2050.",reduction,net_zero,reduction,net_zero,False,True,False,True,731,True,True,False
+409,"Our net zero journey continues with a focus on reducing our value chain emissions 50% by 2030 and 90%+ by 2040, relative to a 2018 baseline. See: ",reduction,net_zero,net_zero,net_zero,False,False,False,False,146,False,False,False
+416,"""South Sudan, through this second NDC, reiterates its commitment to the Paris Agreement goal of limiting global temperature rise to well below 2 degrees Celsius above pre-industrial levels, while making efforts to limit the increase to 1.5 degrees celsius. It details how South Sudan has significantly increases its climate ambition of reducing emissions across its sectors by 109.87 million tonnes of carbon dioxide equivalent while sequestering an additional 45.06 million tonnes by 2030""
+
+""South Sudan will continue to focus on increasing the share of renewable energy in the total energy mix. By increasing the share of solar, wind, hydro and biomass, South Sudan aims at achieving cumulative emission reduction of 69 percent by 2030 compared to the baseline. South Sudan will also promote the use of energy-efficient technologies and decentralized renewable energy grids, which can be both time- and cost-effective, to increase electricity access in rural areas""
+
+Along with the negative impacts of long-term conflicts, the adverse effects of changing climate are also being faced by the inhabitants of South Sudan. The country is experiencing an increasingly warm and dry climate with erratic rainfall. This is resulting in degradation of ecosystems and decreased agricultural productivity that is negatively impacting the livelihoods of a majority of the population. Political and economic instability, including limited access to capital, markets, infrastructure and technology, along with changing climate, are hindering the growth of the country.
+Recognizing this, and to achieve sustainable economic development, South Sudan aims to transition from a least developed country to a middle-income country by 2030, supported by inclusive, stable and sustainable economic growth, while alleviating poverty. Promoting environmental sustainability, climate-resilient communities and appropriate land use has been identified as a critical enabler that will complement the eight strategic priorities of the National Development Strategy (NDS) 2018–2021 (South Sudan Ministry of Finance and Planning 2018)",net_zero,reduction,reduction,reduction,False,False,False,False,2106,True,True,False
+427,"American consumer goods corporation Procter & Gamble commits to reduce emissions from operations 50% by 2030 from a 2010 base-year. Within this timeframe, the company will also address the main source of emissions across its value chain by measures including: ensuring that 70% of all washing machine loads are washed in cold water, doubling the use of post-consumer resin in plastic packaging and ensuring zero deforestation in the palm oil supply chain. Read the Procter & Gamble Case Study.
+
+The targets covering greenhouse gas emissions from company operations (scopes 1 and 2) are consistent with reductions required to keep warming to Well-below 2°C.
+
+
+also scope 3 target:
+40% reduction in supply chain emissions per unit of production by 2030 from a 2020 baseline
+
+
+and promises for scope 1 and 2 to be carbon neutral this decade through carbon credits:
+In 2020, P&G committed to advancing natural climate solutions
+that will balance any remaining Scope 1 and 2 emissions we
+cannot eliminate through 2030 – effectively making our
+manufacturing operations carbon neutral for the decade.",reduction,net_zero,reduction,net_zero,False,True,False,True,1093,True,True,False
+431,"'到2060年，率先建成零碳城市，相匹配的城市治理体系全面建立' (by 2060, build a zero-carbon city)",net_zero,none,net_zero,net_zero,False,True,True,True,68,False,False,False
+447,"For the purposes of our Active Ownership Strategy, we focus on the following aspects relating to the environment in order to select initiatives:
+Energy revolution
+Reduction of CO2 emissions
+Biodiversity",none,reduction,none,none,False,True,True,True,202,False,True,False
+453,"We are using 2019 as our baseline year for our scope
+1 and 2 reduction target of 35 per cent by 2035. ",reduction,none,reduction,reduction,False,True,True,True,102,False,True,False
+455,"In attuazione del parere reso dalla Commissione Europea n. 773/2018 e denominato “Un pianeta pulito per tutti”, il Presidente della Giunta Regionale Michele Emiliano è stato nominato relatore dal Comitato delle Regioni ai fini della redazione del parere denominato “Un pianeta pulito per tutti. Una visione strategica a lungo termine per un’economia prospera, moderna, competitiva e neutra dal punto di vista del clima” approvato ad unanimità in Commissione Ambiente (ENVE) del Comitato delle Regioni in sessione plenaria nelle date del 26 e 27 giugno 2019 a Bruxelles (Belgio). Il parere, in sintesi, contempla quale principale obiettivo la lotta ai cambiamenti climatici, integrando ed armonizzando strategie ambientali, sociali ed economiche al fine di favorire la transizione dell’Unione Europea verso un’economia efficiente e sostenibile, in cui l’ambiente naturale dovrà essere protetto e potenziato, unitamente alla salute ed al benessere dei cittadini.",net_zero,none,net_zero,none,False,True,False,True,960,True,False,True
+462,"'Greening the value chains (Scope 3): By 2030, Alibaba will collaborate with our upstream and downstream value chain partners to cut emission intensity² by 50% in regard to the base year of 2020. Alibaba Cloud provides the key digital infrastructure and will achieve Scope 3 carbon neutrality during the same period.' (p9)",reduction,net_zero,reduction,net_zero,False,True,False,True,322,False,False,False
+472,"2030 target
+- 50%
+emissions compared to 2018 baselin",reduction,none,reduction,reduction,False,True,True,True,52,False,True,False
+485,"The Government is committed to reforming the climate policies of the European Union and Finland so that we can do our part to limit the global mean temperature increase to 1.5 degrees Celsius. Finland aims to develop the EU’s long-term climate measures so that the EU can achieve carbon neutrality before 2050. This means tightening the emissions reduction obligation for 2030 to at least 55 per cent below the 1990 emissions level. 
+
+The target set in the Government Programme is for transport sector emissions to be halved from 2005 levels by 2030. Transport sector emissions are declining too slowly in relation to the target: the existing measures are expected to reduce emissions to 7.9 million tonnes, but emissions should decrease to 6.3 million tonnes. In May 2021, the Government adopted a resolution on a roadmap for fossil-free transport to achieve this target.",net_zero,net_zero,reduction,net_zero,True,False,True,True,872,True,True,False
+498,"2030: Absolute reduction of CO2 emissions by 75% (compared to 2008)
+2025: Absolute reduction of CO2 emissions by 66% (compared to 2008)
+2021: Net zero CO2 emissions onwards",reduction,net_zero,reduction,net_zero,False,True,False,True,172,False,True,False
+505,Our ambition is to be CO₂-neutral by 2039.,net_zero,none,net_zero,net_zero,False,True,True,True,42,False,False,False
+508,Amsterdam aims for a 95% emmissions reduction by 2050 (reference year 1990). Unclear how this becomes climate neutrality though.,net_zero,net_zero,net_zero,reduction,True,True,False,True,128,False,False,False
+514,"To become carbon neutral, DKI Jakarta commits itself
+to achieve a minimum of 49% GHG emission reductions
+from the business-as-usual scenario of 106.5 MtCO2e
+in 2030 (baseline year of 2010).",net_zero,net_zero,reduction,net_zero,True,False,True,True,189,False,True,False

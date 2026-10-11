@@ -40,7 +40,7 @@ app = FastAPI(title="PledgeGrader API", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # Vite dev server
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1):\d+",
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -110,3 +110,12 @@ def saved_metrics(method: str):
     if not path.exists():
         raise HTTPException(404, f"No saved metrics for '{method}'. Run the evaluation first.")
     return json.loads(path.read_text(encoding="utf8"))
+
+
+class GradeIn(BaseModel):
+    text: str
+
+@app.post("/api/grade")
+def grade(body: GradeIn):
+    print("Received from React:", body.text)
+    return {"received": body.text}

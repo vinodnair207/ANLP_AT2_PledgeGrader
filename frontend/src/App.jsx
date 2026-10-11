@@ -36,7 +36,13 @@ const CHECKS = [
   { title: "Interim milestones", text: "Are there smaller targets on the way?" },
 ];
 
-const NAV = ["Grade a pledge", "How scoring works", "Method comparison"];
+const NAV 
+  = 
+    [
+      "Grade a pledge", 
+      // "How scoring works", 
+      // "Method comparison"
+    ];
 
 // UI-only mock: each method "finishes" after `delay` ms with a fake result.
 // Replace with real API calls later.
@@ -304,11 +310,21 @@ export default function App() {
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
 
-  function grade() {
+  async function grade() {
     // UI-only for now: always shows the sample JSON. Later, replace with the
     // JSON returned by api.py for this text.
-    setResult(sampleResult);
+    console.log("hello world")
     setView("loading");
+    console.log(JSON.stringify({ text: text }))
+    await fetch("http://localhost:8000/api/grade", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: text }),
+    });
+
+    // setResult(sampleResult);
+
+    
   }
 
   function gradeAnother() {

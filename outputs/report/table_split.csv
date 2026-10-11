@@ -1,0 +1,4 @@
+split,sentences,none_count,net_zero_count,reduction_count,none_share_percent,net_zero_share_percent,reduction_share_percent,median_characters,p95_characters,max_characters,rows_with_line_breaks
+train,2408,1065,658,685,44.2,27.3,28.4,164,627,4172,694
+validation,516,228,141,147,44.2,27.3,28.5,171,619,4197,139
+test,517,229,141,147,44.3,27.3,28.4,159,650,7058,133

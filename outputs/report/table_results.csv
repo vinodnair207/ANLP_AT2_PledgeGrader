@@ -1,0 +1,4 @@
+method,accuracy,macro_precision,macro_recall,macro_f1
+Rule based baseline,0.9226,0.9203,0.9118,0.9137
+Fine tuned ClimateBERT,0.9613,0.9555,0.9553,0.9554
+Zero shot LLM,0.9497,0.9468,0.9422,0.9426

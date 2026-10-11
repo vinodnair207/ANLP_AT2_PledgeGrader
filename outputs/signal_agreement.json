@@ -1,0 +1,26 @@
+{
+  "target_year": {
+    "fleiss_kappa": 0.721,
+    "mean_majority_share": 0.9583,
+    "n_items": 12,
+    "n_raters": 6
+  },
+  "scope3": {
+    "fleiss_kappa": 0.763,
+    "mean_majority_share": 0.9444,
+    "n_items": 12,
+    "n_raters": 6
+  },
+  "offsets": {
+    "fleiss_kappa": -0.0141,
+    "mean_majority_share": 0.9861,
+    "n_items": 12,
+    "n_raters": 6
+  },
+  "milestones": {
+    "fleiss_kappa": 0.7665,
+    "mean_majority_share": 0.9306,
+    "n_items": 12,
+    "n_raters": 6
+  }
+}

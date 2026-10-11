@@ -18,7 +18,9 @@ paths:
   predictions_dir: outputs    # Stored evaluation outputs used to build report tables
 climatebert:                  # Fine tuning settings for the transformer arm
   base_model: climatebert/distilroberta-base-climate-f   # NEEDS VERIFICATION on the Hub
-  output_dir: models/climatebert
+  output_dir: models/climatebert                 # Local weights, used first when the folder exists
+  hub_repo: Doan16/pledgegrader-climatebert      # Hugging Face repository used when no local folder exists (deployment)
+  hub_revision: d814f64a967609a397dbd4dc6e899f703045915c   # Pinned commit so the deployed weights never change silently
   max_length: 128
   epochs: 4
   batch_size: 16
@@ -28,3 +30,17 @@ labelling:                    # Signal answer key inputs
   sheet: Labelling            # Sheet name that holds the labels
 bootstrap:
   n_resamples: 10000
+llm:                          # Zero shot Gemini arm (src/llm_arm.py)
+  model: gemini-3.1-flash-lite  # Exact id; chosen for its free tier limits (15 requests a minute, 500 a day)
+  temperature: 0.0            # Most repeatable answers
+  max_chars: 8000             # Longer pasted texts are cut; the longest test sentence is about 7,000
+  cache_path: outputs/llm_cache.json
+  # Evaluation runs (src.main, src.llm_experiments): slow and patient, never skip a sentence
+  min_seconds_between_calls: 5.0   # 60 / 15 requests a minute, plus a margin
+  max_retries: 6
+  max_wait_seconds: 300       # A longer wait means the daily quota is used up, so the run stops
+  timeout_seconds: 60
+  # Web app (get_arms(..., live=True)): answer within seconds or report the LLM as unavailable
+  live_max_retries: 2
+  live_max_wait_seconds: 5
+  live_timeout_seconds: 20
