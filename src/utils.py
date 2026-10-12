@@ -23,8 +23,24 @@ def setup_logging(level: int = logging.INFO) -> None:
 
 
 def set_seed(seed: int) -> None:
-    """Fixes the Python random seed so that runs are reproducible."""
+    """Fixes the Python, numpy and torch random seeds so that runs are reproducible.
+
+    Numpy and torch are seeded only when they are installed, so the rule based arm
+    still works in an environment without torch.
+    """
     random.seed(seed)
+    try:
+        import numpy as np
+
+        np.random.seed(seed)
+    except ImportError:  # pragma: no cover
+        pass
+    try:
+        import torch
+
+        torch.manual_seed(seed)
+    except ImportError:
+        pass
 
 
 def normalise_text(text: str) -> str:

@@ -208,6 +208,7 @@ def generate_all(out_dir: Path, report_dir: Path) -> list:
     written = []
 
     def save_table(frame: pd.DataFrame, name: str) -> None:
+        """Writes one report table as CSV and records its name, skipping empty tables."""
         if frame.empty:
             return
         frame.to_csv(report_dir / name, index=False)

@@ -1,7 +1,7 @@
 """Model arms. Each arm exposes predict(text) returning a dict with a label key.
 
 All three arms share the same interface. The zero shot LLM arm is defined in
-src/llm_arm.py and re-exported here.
+src/llm_arm.py and exported again here.
 """
 import logging
 from pathlib import Path

@@ -235,3 +235,14 @@ def test_prediction_contains_everything_the_app_shows(tmp_path):
     out = arm.predict(PLEDGE)
     assert {"label", "signals", "evidence", "evidence_spans", "score", "explanation"} <= out.keys()
     assert set(out["signals"]) == set(out["evidence"]) == set(out["evidence_spans"]) == set(llm_arm.SIGNALS)
+
+
+def test_live_mode_stores_nothing_from_the_user(tmp_path):
+    """Text pasted into the live app is never written to the cache file or kept for later requests."""
+    cfg = make_cfg(tmp_path)
+    client = FakeClient([answer()])
+    arm = ZeroShotLLMArm(cfg, client=client, live=True)
+    arm.predict(PLEDGE)
+    arm.predict(PLEDGE)
+    assert client.calls == 2
+    assert not (tmp_path / "cache.json").exists()

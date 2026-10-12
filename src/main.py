@@ -17,7 +17,9 @@ logger = logging.getLogger(__name__)
 def evaluate(method: str, cfg: dict) -> dict:
     """Runs one method over the test set, stores predictions, and returns metrics."""
     test = data_processing.get_test_set(cfg)
-    arm = model.get_arms(cfg, (method,))[method]
+    arm = model.get_arms(cfg, (method,)).get(method)
+    if arm is None:
+        raise RuntimeError(f"Method {method} is unavailable. For climatebert, train the model or set climatebert.hub_repo in the config.")
     # Labels are already standardised to string names by data_processing.
     gold = test["label"]
     outputs = [arm.predict(t) for t in test["text"]]
