@@ -48,7 +48,7 @@ const NAV
 const METHODS = [
   { id: "rules", name: "Rule-based", hint: "Usually instant" },
   { id: "climatebert", name: "ClimateBERT", hint: "Usually under 1 second" },
-  { id: "llm", name: "Zero-shot LLM", hint: "Usually 1–5 seconds" },
+  { id: "llm", name: "Zero-shot LLM", hint: "Usually 1-5 seconds" },
 ];
 
 function Logo() {
@@ -103,7 +103,7 @@ function Header({ active, onNavigate }) {
 
 /* ---------------- Input view ---------------- */
 
-function PledgeForm({ text, setText, onGrade }) {
+function PledgeForm({ text, setText, onGrade, error, setError }) {
   const [example, setExample] = useState(null);
 
   const length = text.length;
@@ -112,6 +112,7 @@ function PledgeForm({ text, setText, onGrade }) {
   function clear() {
     setText("");
     setExample(null);
+    setError("");
   }
 
   return (
@@ -125,6 +126,7 @@ function PledgeForm({ text, setText, onGrade }) {
             onClick={() => {
               setExample(ex.name);
               setText(ex.text);
+              setError("");
             }}
           >
             {ex.name}
@@ -144,6 +146,7 @@ function PledgeForm({ text, setText, onGrade }) {
           onChange={(e) => {
             setText(e.target.value);
             setExample(null);
+            setError(""); 
           }}
           placeholder="e.g. We will reach net zero across Scopes 1, 2 and 3 by 2040, with a 50% cut by 2030."
         />
@@ -151,11 +154,12 @@ function PledgeForm({ text, setText, onGrade }) {
           <span>One sentence to a short paragraph · English · 20–2,000 characters</span>
           <span>{length.toLocaleString()} / 2,000</span>
         </div>
+        {error && <p className="field-error" role="alert">{error}</p>}
       </div>
 
       <div className="actions">
         <button className="btn-primary" onClick={onGrade} disabled={!valid}>
-          Grade pledge
+          Grade Pledge
         </button>
         <button className="btn-secondary" onClick={clear}>Clear</button>
         <span className="hint">Takes about 5–10 seconds</span>
@@ -181,7 +185,7 @@ function WhatGetsChecked() {
   );
 }
 
-function InputView({ text, setText, onGrade }) {
+function InputView({ text, setText, onGrade, error, setError }) {
   return (
     <>
       <section className="hero">
@@ -192,7 +196,7 @@ function InputView({ text, setText, onGrade }) {
           signs of a believable plan and shows how three NLP methods read it.
         </p>
       </section>
-      <PledgeForm text={text} setText={setText} onGrade={onGrade} />
+      <PledgeForm text={text} setText={setText} onGrade={onGrade} error={error} setError={setError} />
       <WhatGetsChecked />
       <footer className="footer">
         <span>A first check, not a final verdict. Verify anything important with an expert.</span>
@@ -326,10 +330,12 @@ export default function App() {
   const [view, setView] = useState("input"); // "input" | "loading" | "result"
   const [text, setText] = useState("");
   const [result, setResult] = useState(null);
+  const [error, setError] = useState(""); // message shown under the text box
 
   async function grade() {
     setResult(null);
-    setView("loading"); 
+    setError("");
+    setView("loading"); // show the loading screen straight away
 
     try {
       const res = await fetch("http://localhost:8000/api/grade", {
@@ -340,14 +346,16 @@ export default function App() {
       const data = await res.json();
 
       if (!res.ok) {
-        console.error("Grading failed:", data.detail);
+        // e.g. 400 from validate_text: {"detail": "Please enter at least 20 characters."}
+        setError(data.detail || "Something went wrong. Please try again.");
         setView("input");
         return;
       }
-      console.log(data)
-      setResult(data);
+
+      setResult(data); // LoadingView sees this, fills the cards, then moves to the result page
     } catch (err) {
       console.error("Couldn't reach the grader:", err);
+      setError("Couldn't reach the grader. Is the backend running on port 8000?");
       setView("input");
     }
   }
@@ -363,7 +371,9 @@ export default function App() {
     <>
       <Header active={page} onNavigate={setPage} />
       <main className="container">
-        {view === "input" && <InputView text={text} setText={setText} onGrade={grade} />}
+        {view === "input" && (
+          <InputView text={text} setText={setText} onGrade={grade} error={error} setError={setError} />
+        )}
         {view === "loading" && <LoadingView text={text} result={result} onDone={() => setView("result")} />}
         {view === "result" && (
           <ResultView text={result.text} result={result} onGradeAnother={gradeAnother} onNavigate={setPage} />

@@ -11446,5 +11446,23 @@
    "offsets": "",
    "milestones": ""
   }
+ },
+ "851d758f0cde4686ea5f98e2ab35f36a424d9dfd0404e7db2b29e24d0bedda32": {
+  "method": "llm",
+  "label": "none",
+  "signals": {
+   "target_year": false,
+   "scope3": false,
+   "offsets": false,
+   "milestones": false
+  },
+  "score": 0,
+  "explanation": "The provided text does not contain any information regarding climate goals or emission reduction targets.",
+  "evidence": {
+   "target_year": "",
+   "scope3": "",
+   "offsets": "",
+   "milestones": ""
+  }
  }
 }
