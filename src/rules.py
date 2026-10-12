@@ -133,7 +133,9 @@ TARGET_YEAR = re.compile(
 # Scope 3 is positive only when the sentence explicitly covers Scope 3 or equivalent
 # value/supply-chain emissions, matching the labelling guide.
 SCOPE3 = re.compile(
-    r"\bscope\s*(?:3|iii)\b"
+    r"\bscopes?\s*(?:3|iii)\b"
+    # Lists such as "Scopes 1, 2 and 3", "Scope 1, 2, and 3", "Scopes 1 to 3" and "Scope 1-3".
+    r"|\bscopes?\s*(?:[12]\s*(?:,\s*(?:and\s+|&\s*)?|and\s+|&\s*|to\s+|through\s+|[-/]\s*))+3\b"
     r"|\b(?:full|entire)?\s*value[\s\-]?chain(?:\s+emissions?)?\b"
     r"|\bsupply[\s\-]?chain\s+emissions?\b",
     re.I,
