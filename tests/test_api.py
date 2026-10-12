@@ -5,6 +5,7 @@ pytest.importorskip("httpx")
 from fastapi.testclient import TestClient  # noqa: E402
 
 from src import api, utils  # noqa: E402
+from src.ratelimit import RequestLimiter  # noqa: E402
 
 PLEDGE = ("We will reach net zero across Scopes 1, 2 and 3 by 2040, with a 50% cut in absolute emissions "
           "by 2030 against a 2020 baseline. Offsets will only be used for residual emissions.")
@@ -63,3 +64,29 @@ def test_grade_reports_503_when_every_method_fails(client, monkeypatch):
     monkeypatch.setitem(api.state, "arms", {"rules": StubArm(fail=True)})
     response = client.post("/api/grade", json={"text": PLEDGE})
     assert response.status_code == 503 and "No method could grade" in response.json()["detail"]
+
+
+def test_grade_returns_429_when_the_visitor_limit_is_reached(client, monkeypatch):
+    """The third request in a minute is refused with a readable message and a Retry-After header."""
+    monkeypatch.setitem(api.state, "limiter", RequestLimiter(2, 60, 100, 86400))
+    for _ in range(2):
+        assert client.post("/api/grade", json={"text": PLEDGE}).status_code == 200
+    response = client.post("/api/grade", json={"text": PLEDGE})
+    assert response.status_code == 429 and "Too many requests" in response.json()["detail"]
+    assert response.headers["retry-after"] == "60"
+
+
+def test_invalid_text_does_not_use_up_the_allowance(client, monkeypatch):
+    """Rejected input returns 400 and is not counted by the limiter."""
+    monkeypatch.setitem(api.state, "limiter", RequestLimiter(1, 60, 100, 86400))
+    assert client.post("/api/grade", json={"text": "too short"}).status_code == 400
+    assert client.post("/api/grade", json={"text": PLEDGE}).status_code == 200
+
+
+def test_forwarded_address_identifies_the_visitor(client, monkeypatch):
+    """Two visitors behind the same proxy are counted separately through X-Forwarded-For."""
+    monkeypatch.setitem(api.state, "limiter", RequestLimiter(1, 60, 100, 86400))
+    first = client.post("/api/grade", json={"text": PLEDGE}, headers={"x-forwarded-for": "1.1.1.1"})
+    second = client.post("/api/grade", json={"text": PLEDGE}, headers={"x-forwarded-for": "2.2.2.2"})
+    again = client.post("/api/grade", json={"text": PLEDGE}, headers={"x-forwarded-for": "1.1.1.1"})
+    assert (first.status_code, second.status_code, again.status_code) == (200, 200, 429)

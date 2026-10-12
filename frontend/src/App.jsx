@@ -48,7 +48,7 @@ const NAV
 const METHODS = [
   { id: "rules", name: "Rule-based", hint: "Usually instant" },
   { id: "climatebert", name: "ClimateBERT", hint: "Usually under 1 second" },
-  { id: "llm", name: "Zero-shot LLM", hint: "Usually 1-5 seconds" },
+  { id: "llm", name: "Zero-shot LLM", hint: "Usually 10 to 20 seconds" },
 ];
 
 function Logo() {
@@ -154,6 +154,10 @@ function PledgeForm({ text, setText, onGrade, error, setError }) {
           <span>One sentence to a short paragraph · English · 20–2,000 characters</span>
           <span>{length.toLocaleString()} / 2,000</span>
         </div>
+        <p className="hint privacy-note">
+          Do not paste confidential text. The pledge is sent to Google for the language model method. The four
+          checks are built for English text, so pledges in other languages may be marked wrongly.
+        </p>
         {error && <p className="field-error" role="alert">{error}</p>}
       </div>
 
@@ -162,7 +166,7 @@ function PledgeForm({ text, setText, onGrade, error, setError }) {
           Grade Pledge
         </button>
         <button className="btn-secondary" onClick={clear}>Clear</button>
-        <span className="hint">Takes about 5–10 seconds</span>
+        <span className="hint">Takes about 10 to 20 seconds</span>
       </div>
     </section>
   );

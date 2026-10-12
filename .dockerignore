@@ -1,0 +1,13 @@
+# Keeps the image small and keeps secrets and local files out of it.
+.git
+.env
+.venv
+**/node_modules
+frontend/dist
+data
+models
+labelling
+docs
+tests
+**/__pycache__
+.pytest_cache

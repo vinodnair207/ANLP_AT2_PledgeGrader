@@ -11,7 +11,6 @@ dependencies = [
     "datasets>=2.18",
     "transformers>=4.40",
     "torch>=2.2",
-    "streamlit>=1.35",
     "openpyxl>=3.1",
     "matplotlib>=3.8",
     "google-genai>=1.0",
