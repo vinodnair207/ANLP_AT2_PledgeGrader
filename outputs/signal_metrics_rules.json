@@ -11,14 +11,14 @@
     "tn": 8
   },
   "scope3": {
-    "precision": 0.9375,
-    "recall": 0.7143,
-    "f1": 0.8108,
-    "accuracy": 0.93,
+    "precision": 0.9412,
+    "recall": 0.7619,
+    "f1": 0.8421,
+    "accuracy": 0.94,
     "support_present": 21,
-    "tp": 15,
+    "tp": 16,
     "fp": 1,
-    "fn": 6,
+    "fn": 5,
     "tn": 78
   },
   "offsets": {
@@ -43,5 +43,5 @@
     "fn": 2,
     "tn": 75
   },
-  "macro_f1": 0.7263
+  "macro_f1": 0.7342
 }

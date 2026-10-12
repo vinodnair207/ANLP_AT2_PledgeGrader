@@ -347,6 +347,15 @@ textarea:focus { outline: 2px solid var(--green-700); outline-offset: 1px; }
   font-weight: 600;
 }
 .agree-banner.split { background: #fbe6cc; color: var(--rust); }
+.method-warning {
+  background: #fbe6cc;
+  color: var(--rust);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+.method-warning p { margin: 0; }
 .method-card.odd { border: 2px solid var(--orange); }
 .method-time { font-size: 13px; color: var(--muted); }
 .method-detail { margin-top: 14px; font-size: 14px; line-height: 1.45; }
