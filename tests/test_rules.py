@@ -51,6 +51,36 @@ def test_generic_indirect_emissions_do_not_automatically_mean_scope3():
     assert signals["scope3"] is False
 
 
+def test_scope3_detects_scope_lists():
+    """Lists of scopes that end in 3 count as Scope 3 coverage (regression for the demo pledge)."""
+    for text in (
+        "We will reach net zero across Scopes 1, 2 and 3 by 2040.",
+        "The target covers Scope 1, 2, and 3 emissions.",
+        "The target covers Scopes 1 to 3.",
+        "The target covers Scope 1-3 emissions.",
+        "The target covers Scope 1, 2 & 3 emissions.",
+    ):
+        assert rules.detect_signals(text)["scope3"] is True, text
+
+
+def test_scope3_ignores_scopes_one_and_two_only():
+    """A list that stops at Scope 2, or a stray number after it, does not count as Scope 3."""
+    for text in (
+        "Our goal is to reduce Scope 1 and 2 greenhouse gas emissions by 2030.",
+        "Scope 1 and 2 emissions fall 50% and 3 sites close.",
+        "We will reduce Scope 2 emissions by 30%.",
+    ):
+        assert rules.detect_signals(text)["scope3"] is False, text
+
+
+def test_demo_pledge_scores_one_hundred():
+    """The example pledge shown in the app earns all four signals."""
+    text = ("We will reach net zero across Scopes 1, 2 and 3 by 2040, with a 50% cut in absolute "
+            "emissions by 2030 against a 2020 baseline. Offsets will only be used for residual "
+            "emissions, through verified carbon removals.")
+    assert rules.score_and_explain(text, POINTS)["score"] == 100
+
+
 def test_generic_offset_mention_does_not_count_as_offset_use():
     signals = rules.detect_signals("The report discusses carbon offsets and carbon markets.")
     assert signals["offsets"] is False

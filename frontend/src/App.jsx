@@ -338,7 +338,7 @@ export default function App() {
     setView("loading"); // show the loading screen straight away
 
     try {
-      const res = await fetch("http://localhost:8000/api/grade", {
+      const res = await fetch("/api/grade", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: text }),
