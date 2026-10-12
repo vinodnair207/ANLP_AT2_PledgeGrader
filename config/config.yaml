@@ -44,3 +44,6 @@ llm:                          # Zero shot Gemini arm (src/llm_arm.py)
   live_max_retries: 2
   live_max_wait_seconds: 5
   live_timeout_seconds: 20
+api:                          # Limits for the public web app (src/ratelimit.py)
+  max_requests_per_minute_per_visitor: 6   # Stops one visitor from flooding the app
+  max_requests_per_day_total: 400          # Keeps the app below the Gemini quota of 500 requests a day

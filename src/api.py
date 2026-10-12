@@ -12,12 +12,13 @@ import threading
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from src import model, utils
+from src.ratelimit import RequestLimiter
 from src.grading import METHOD_NAMES, grade_pledge, validate_text
 
 logger = logging.getLogger(__name__)
@@ -26,7 +27,7 @@ logger = logging.getLogger(__name__)
 METHODS = ("rules", "climatebert", "llm")
 
 # Holds the configuration and each method that loaded. A method that failed to load is absent.
-state: dict = {"cfg": None, "arms": {}}
+state: dict = {"cfg": None, "arms": {}, "limiter": None}
 _arms_lock = threading.Lock()
 
 
@@ -57,6 +58,7 @@ async def lifespan(app: FastAPI):
     cfg = utils.load_config()
     utils.set_seed(cfg["seed"])
     state["cfg"] = cfg
+    state["limiter"] = RequestLimiter.from_config(cfg)
     with _arms_lock:
         for method in METHODS:
             load_arm(method)
@@ -86,6 +88,24 @@ def get_arm(method: str):
     return arm
 
 
+def enforce_limit(request: Request) -> None:
+    """Raises a 429 error when the visitor or the whole app has used its allowance of requests.
+
+    The visitor is identified by the first address in X-Forwarded-For, which the Hugging Face proxy sets,
+    or by the direct connection address. The header can be forged, so the total daily limit is the real
+    protection of the Gemini quota.
+    """
+    limiter = state.get("limiter")
+    if limiter is None:
+        return
+    forwarded = request.headers.get("x-forwarded-for", "").split(",")[0].strip()
+    visitor = forwarded or (request.client.host if request.client else "unknown")
+    message = limiter.check(visitor)
+    if message:
+        logger.warning("Request limit reached for %s", visitor)
+        raise HTTPException(429, message, headers={"Retry-After": "60"})
+
+
 def to_jsonable(obj):
     """Converts numpy scalars/arrays (common in model outputs) into plain Python types."""
     return json.loads(json.dumps(obj, default=lambda o: o.tolist() if hasattr(o, "tolist") else str(o)))
@@ -113,9 +133,10 @@ def methods():
 
 
 @app.post("/api/predict")
-def predict(body: PredictIn):
+def predict(body: PredictIn, request: Request):
     """Classifies one piece of text with the chosen method."""
     arm = get_arm(body.method)
+    enforce_limit(request)
     try:
         result = arm.predict(body.text)
     except Exception:
@@ -136,12 +157,14 @@ def saved_metrics(method: str):
 
 
 @app.post("/api/grade")
-def grade(body: TextIn):
+def grade(body: TextIn, request: Request):
     """Grades one pledge with every loaded method and returns the score, checks and explanations."""
     try:
         validate_text(body.text)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
+    # The limit is checked after validation, so that rejected input does not use up the allowance.
+    enforce_limit(request)
 
     with _arms_lock:
         arms = dict(state["arms"])
