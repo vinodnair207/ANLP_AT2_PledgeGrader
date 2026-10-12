@@ -167,7 +167,6 @@ def grade_pledge(text: str, arms: dict, cfg: dict) -> dict:
         ValueError: The text is shorter or longer than the allowed range.
         RuntimeError: No method could grade the pledge.
     """
-    validate_text(text)
     names = [n for n in METHOD_ORDER if n in arms]
     # Methods run in parallel, so the wait is the slowest method and not the sum of all methods.
     with ThreadPoolExecutor(max_workers=max(1, len(names))) as pool:
