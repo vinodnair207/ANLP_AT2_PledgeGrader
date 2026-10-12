@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ResultView from "./ResultView.jsx";
-import sampleResult from "./sampleResult.json";
 
 const MIN_CHARS = 20;
 const MAX_CHARS = 2000;
+const STEP_SECONDS = 1; // each method card shows "Reading..." for this long, one after another
 
 // Invented examples for illustration only (not real companies).
 const EXAMPLES = [
@@ -44,12 +44,11 @@ const NAV
       // "Method comparison"
     ];
 
-// UI-only mock: each method "finishes" after `delay` ms with a fake result.
-// Replace with real API calls later.
-const MOCK_METHODS = [
-  { id: "rules", name: "Rule-based", delay: 600, time: "4 ms", result: "Net zero", hint: "Usually instant" },
-  { id: "climatebert", name: "ClimateBERT", delay: 1500, time: "0.1 s", result: "Net zero · 93%", hint: "Usually under 1 second" },
-  { id: "llm", name: "Zero-shot LLM", delay: 5000, time: "4.2 s", result: "Net zero", hint: "Usually 3–8 seconds" },
+// Display info for each method card before its result arrives.
+const METHODS = [
+  { id: "rules", name: "Rule-based", hint: "Usually instant" },
+  { id: "climatebert", name: "ClimateBERT", hint: "Usually under 1 second" },
+  { id: "llm", name: "Zero-shot LLM", hint: "Usually 1–5 seconds" },
 ];
 
 function Logo() {
@@ -205,19 +204,24 @@ function InputView({ text, setText, onGrade }) {
 
 /* ---------------- Loading view ---------------- */
 
-function MethodCard({ method, done }) {
+function MethodCard({ method, result }) {
+  const done = Boolean(result);
+  const failed = done && !result.label;
   return (
     <div className={`method-card ${done ? "" : "pending"}`}>
       <div className="method-head">
         <h3>{method.name}</h3>
         {done ? (
-          <span className="status done"><CheckIcon /> Done · {method.time}</span>
+          <span className="status done"><CheckIcon /> Done · {result.time}</span>
         ) : (
           <span className="status reading"><Spinner size={14} /> Reading...</span>
         )}
       </div>
       {done ? (
-        <span className="pill">{method.result}</span>
+        <span className="pill">
+          {failed ? "Unavailable" : result.label}
+          {result.confidence != null && ` · ${result.confidence}%`}
+        </span>
       ) : (
         <>
           <span className="pill-skeleton shimmer" />
@@ -228,25 +232,36 @@ function MethodCard({ method, done }) {
   );
 }
 
-function LoadingView({ text, onDone }) {
-  const [doneIds, setDoneIds] = useState([]);
-
+function LoadingView({ text, result, onDone }) {
+  // Stopwatch from the moment the loading screen appears.
+  const [elapsed, setElapsed] = useState(0);
   useEffect(() => {
-    const timers = MOCK_METHODS.map((m) =>
-      setTimeout(() => setDoneIds((prev) => [...prev, m.id]), m.delay)
-    );
-    return () => timers.forEach(clearTimeout);
+    const start = Date.now();
+    const timer = setInterval(() => setElapsed((Date.now() - start) / 1000), 100);
+    return () => clearInterval(timer);
   }, []);
 
-  const doneCount = doneIds.length;
-  const total = MOCK_METHODS.length;
+  // Cards are revealed one per STEP_SECONDS, in order (rules -> ClimateBERT -> LLM),
+  // but never before the response has arrived. The card itself shows the real data.
+  let revealAt = 0;
+  const cards = METHODS.map((m) => {
+    const data = result
+      ? result.methods.find((r) => r.id === m.id) || { id: m.id, label: null, time: "n/a" }
+      : null;
+    revealAt += STEP_SECONDS;
+    return { method: m, data, revealed: Boolean(data) && elapsed >= revealAt };
+  });
 
-  // Short pause once all methods finish, so the full progress bar is visible.
+  const doneCount = cards.filter((c) => c.revealed).length;
+  const total = METHODS.length;
+  const allDone = doneCount === total;
+
+  // Once every card is revealed, pause briefly, then show the result page.
   useEffect(() => {
-    if (doneCount !== total) return;
-    const t = setTimeout(onDone, 600);
+    if (!allDone) return;
+    const t = setTimeout(onDone, 800);
     return () => clearTimeout(t);
-  }, [doneCount, total, onDone]);
+  }, [allDone, onDone]);
 
   return (
     <div className="loading-page">
@@ -264,7 +279,9 @@ function LoadingView({ text, onDone }) {
       <section className="progress-section">
         <div className="progress-head">
           <h2>Grading your pledge...</h2>
-          <span className="progress-count">{doneCount} of {total} methods done</span>
+          <span className="progress-count">
+            {doneCount} of {total} methods done · {elapsed.toFixed(1)} s
+          </span>
         </div>
         <div className="progress-track" role="progressbar" aria-valuenow={doneCount} aria-valuemin={0} aria-valuemax={total}>
           <div className="progress-fill" style={{ width: `${(doneCount / total) * 100}%` }} />
@@ -293,8 +310,8 @@ function LoadingView({ text, onDone }) {
       <section className="methods">
         <h2>How the three methods read it</h2>
         <div className="method-grid">
-          {MOCK_METHODS.map((m) => (
-            <MethodCard key={m.id} method={m} done={doneIds.includes(m.id)} />
+          {cards.map((c) => (
+            <MethodCard key={c.method.id} method={c.method} result={c.revealed ? c.data : null} />
           ))}
         </div>
       </section>
@@ -311,20 +328,28 @@ export default function App() {
   const [result, setResult] = useState(null);
 
   async function grade() {
-    // UI-only for now: always shows the sample JSON. Later, replace with the
-    // JSON returned by api.py for this text.
-    console.log("hello world")
-    setView("loading");
-    console.log(JSON.stringify({ text: text }))
-    await fetch("http://localhost:8000/api/grade", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ text: text }),
-    });
+    setResult(null);
+    setView("loading"); 
 
-    // setResult(sampleResult);
+    try {
+      const res = await fetch("http://localhost:8000/api/grade", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: text }),
+      });
+      const data = await res.json();
 
-    
+      if (!res.ok) {
+        console.error("Grading failed:", data.detail);
+        setView("input");
+        return;
+      }
+      console.log(data)
+      setResult(data);
+    } catch (err) {
+      console.error("Couldn't reach the grader:", err);
+      setView("input");
+    }
   }
 
   function gradeAnother() {
@@ -339,7 +364,7 @@ export default function App() {
       <Header active={page} onNavigate={setPage} />
       <main className="container">
         {view === "input" && <InputView text={text} setText={setText} onGrade={grade} />}
-        {view === "loading" && <LoadingView text={text} onDone={() => setView("result")} />}
+        {view === "loading" && <LoadingView text={text} result={result} onDone={() => setView("result")} />}
         {view === "result" && (
           <ResultView text={result.text} result={result} onGradeAnother={gradeAnother} onNavigate={setPage} />
         )}

@@ -15,15 +15,18 @@ from pydantic import BaseModel, Field
 
 from src import model, utils
 from src.main import evaluate
+from src.grading import grade_pledge, validate_text
 
 logger = logging.getLogger(__name__)
 
 # Keep in sync with the --method choices in src/main.py.
-METHODS = ("rules", "climatebert")
+METHODS = ("rules", "climatebert", "llm")
 
 state: dict = {"cfg": None, "arms": {}}
 _arms_lock = threading.Lock()
 
+cfg = utils.load_config()
+arms = model.get_arms(cfg, ("rules", "climatebert", "llm"))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -90,17 +93,6 @@ def predict(body: PredictIn):
     return {"method": body.method, **to_jsonable(result)}
 
 
-@app.post("/api/evaluate/{method}")
-def run_evaluation(method: str):
-    """Runs the full test-set evaluation (same as the CLI). Slow, and writes files."""
-    get_arm(method)  # Validates the method name early.
-    try:
-        return to_jsonable(evaluate(method, state["cfg"]))
-    except Exception:
-        logger.exception("Evaluation failed")
-        raise HTTPException(500, "Evaluation failed, see server logs.")
-
-
 @app.get("/api/metrics/{method}")
 def saved_metrics(method: str):
     """Returns metrics saved by a previous evaluation run, without recomputing."""
@@ -112,10 +104,26 @@ def saved_metrics(method: str):
     return json.loads(path.read_text(encoding="utf8"))
 
 
-class GradeIn(BaseModel):
+class TextIn(BaseModel):
     text: str
 
 @app.post("/api/grade")
-def grade(body: GradeIn):
-    print("Received from React:", body.text)
-    return {"received": body.text}
+def grade(body: TextIn):
+    text = body.text.strip()
+
+    try:
+        validate_text(body.text)
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    return grade_pledge(text, arms, cfg)
+    outputs = {}
+    for method_id in METHODS:
+        start = time.perf_counter()
+        try:
+            output = arms[method_id].predict(text)
+        except Exception:
+            logger.exception("Method %s failed", method_id)
+            output = None  # one failing method shouldn't sink the whole request
+        outputs[method_id] = {"output": output, "seconds": time.perf_counter() - start}
+
+    return build_result(text, outputs)
