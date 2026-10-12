@@ -17,7 +17,7 @@ scoring:                      # Points awarded per robustness signal (sum to 100
 paths:
   predictions_dir: outputs    # Stored evaluation outputs used to build report tables
 climatebert:                  # Fine tuning settings for the transformer arm
-  base_model: climatebert/distilroberta-base-climate-f   # NEEDS VERIFICATION on the Hub
+  base_model: climatebert/distilroberta-base-climate-f   # Base model on the Hugging Face Hub (Climate Bert, n.d.-a)
   output_dir: models/climatebert                 # Local weights, used first when the folder exists
   hub_repo: Doan16/pledgegrader-climatebert      # Hugging Face repository used when no local folder exists (deployment)
   hub_revision: d814f64a967609a397dbd4dc6e899f703045915c   # Pinned commit so the deployed weights never change silently

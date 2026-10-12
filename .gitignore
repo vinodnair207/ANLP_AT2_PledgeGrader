@@ -5,3 +5,5 @@ data/*.csv
 models/
 *_checkpoints/
 .pytest_cache/
+
+.DS_Store

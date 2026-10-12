@@ -6,14 +6,16 @@ language explanation. The output follows the shared predict(text) format used
 by the rule based and ClimateBERT arms.
 
 Design choices:
-- Gemini must return JSON that matches a fixed schema, so parsing is reliable.
-- Temperature is 0 to keep answers as repeatable as possible.
-- Every signal marked present must quote the input. A quote that is not found
+* Gemini must return JSON that matches a fixed schema, so parsing is reliable.
+* Temperature is 0 to keep answers as repeatable as possible.
+* Every signal marked present must quote the input. A quote that is not found
   in the input is treated as a hallucination and the signal is set to False.
-- The score is calculated here with the shared points in config.yaml, never by
+* The score is calculated here with the shared points in config.yaml, never by
   the LLM, so all three arms are scored by the same rule.
-- Every answer is cached on disk, so a sentence is never sent twice and an
-  interrupted run resumes where it stopped.
+* Every answer from an evaluation run is cached on disk, so a sentence is never
+  sent twice and an interrupted run resumes where it stopped.
+* The live web app stores nothing: a pledge pasted by a user is never written to
+  disk or kept in memory after the answer is returned.
 """
 from __future__ import annotations
 
@@ -34,7 +36,7 @@ try:
     from dotenv import load_dotenv
 
     load_dotenv()
-except ImportError:  # pragma: no cover - optional dependency
+except ImportError:  # pragma: no cover
     pass
 
 logger = logging.getLogger(__name__)
@@ -318,7 +320,8 @@ class ZeroShotLLMArm:
         score = 0 if answer.label == "none" else sum(self.points[k] for k, v in signals.items() if v)
         result = {"method": self.name, "label": answer.label, "signals": signals, "score": score,
                   "explanation": answer.explanation.strip(), "evidence": evidence}
-        if use_cache:
+        # Only evaluation runs are cached. Text pasted into the live app is never stored.
+        if use_cache and not self.live:
             with self._lock:
                 self._cache[key] = result
                 self._write_cache()

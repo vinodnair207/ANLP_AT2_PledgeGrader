@@ -8,13 +8,12 @@ signal rather than merely a related keyword.
 import re
 
 # Pattern for net zero style language, checked before reduction language.
-# Net-zero style language is checked before reduction language.
 #
 # The alternatives cover common equivalent forms found during validation
-# error analysis, including neutrality and explicit zero-emission wording.
+# error analysis, including neutrality and explicit zero emission wording.
 NET_ZERO = re.compile(
     r"(?:"
-    # Net-zero, allowing small punctuation variations such as "(net)-zero".
+    # Net zero, allowing small punctuation variations between the two words.
     r"\bnet\W{0,3}zero\b"
 
     # Carbon/climate neutrality terminology.
@@ -22,10 +21,10 @@ NET_ZERO = re.compile(
     r"|\bclimate[\s\-]?neutral(?:ity)?\b"
     r"|\bclimate[\s\-]?positive\b"
 
-    # Net greenhouse-gas/carbon neutrality.
+    # Net greenhouse gas/carbon neutrality.
     r"|\bnet\s+(?:greenhouse\s+gas|ghg|carbon)\s+neutral(?:ity)?\b"
 
-    # Emission-neutral wording.
+    # Emission neutral wording.
     r"|\bemissions?[\s\-]?neutral\b"
 
     # Reversed forms such as 'neutrality of greenhouse gas emissions'.
@@ -35,7 +34,7 @@ NET_ZERO = re.compile(
     # Examples such as 'neutral carbon city'.
     r"|\bneutral\s+carbon\b"
 
-    # Explicit zero-emission terminology.
+    # Explicit zero emission terminology.
     r"|\bzero\s+(?:net\s+)?"
     r"(?:carbon|emissions?|ghg|greenhouse\s+gas(?:es)?|co2)"
     r"(?:\s+emissions?)?\b"
@@ -47,10 +46,10 @@ NET_ZERO = re.compile(
     r"|\beliminat\w*.{0,30}?"
     r"(?:co2|carbon|ghg|greenhouse\s+gas(?:es)?)\s+emissions?\b"
 
-    # Existing stronger-than-zero terminology.
+    # Existing stronger than zero terminology.
     r"|\bcarbon[\s\-]?negative\b"
 
-    # Wording occasionally used for a net-zero target.
+    # Wording occasionally used for a net zero target.
     r"|\bnet\s+neutrality\b"
 
     r")",
@@ -91,7 +90,7 @@ REDUCTION = re.compile(
     rf"\b(?:reduc\w+|cut\w*|decreas\w+|lower\w*|halv\w+)\b"
 
     # Percentage before the word reduction:
-    # '22.6% GHG reduction', '30-40% reduction'.
+    # A percentage or a percentage range placed before the word reduction.
     rf"|{PERCENT}.{{0,50}}?\b(?:reduction|reductions)\b"
 
     # 'reduction in greenhouse gases'.
@@ -131,10 +130,10 @@ TARGET_YEAR = re.compile(
 )
 
 # Scope 3 is positive only when the sentence explicitly covers Scope 3 or equivalent
-# value/supply-chain emissions, matching the labelling guide.
+# value/supply chain emissions, matching the labelling guide.
 SCOPE3 = re.compile(
     r"\bscopes?\s*(?:3|iii)\b"
-    # Lists such as "Scopes 1, 2 and 3", "Scope 1, 2, and 3", "Scopes 1 to 3" and "Scope 1-3".
+    # Lists and ranges such as "Scopes 1, 2 and 3", "Scope 1, 2, and 3" and "Scopes 1 to 3".
     r"|\bscopes?\s*(?:[12]\s*(?:,\s*(?:and\s+|&\s*)?|and\s+|&\s*|to\s+|through\s+|[-/]\s*))+3\b"
     r"|\b(?:full|entire)?\s*value[\s\-]?chain(?:\s+emissions?)?\b"
     r"|\bsupply[\s\-]?chain\s+emissions?\b",
@@ -142,7 +141,7 @@ SCOPE3 = re.compile(
 )
 
 # The guide requires more than a generic mention of offsets.  A positive result needs
-# language describing use, reliance, limitation, non-use, or treatment of residual
+# language describing use, reliance, limitation, non use, or treatment of residual
 # emissions with offsets/credits/removals.
 OFFSETS = re.compile(
     r"\b(?:use|using|used|rely|relying|reliance|purchase|purchasing|retire|retiring|"
@@ -201,7 +200,7 @@ def _has_interim_milestone(text: str) -> bool:
     if EXPLICIT_MILESTONE.search(text):
         return True
 
-    # Capture each target-associated year and ignore duplicate mentions of the same
+    # Capture each target associated year and ignore duplicate mentions of the same
     # year.  A single final target is not an interim milestone.
     years = set()
     for match in DATED_TARGET.finditer(text):

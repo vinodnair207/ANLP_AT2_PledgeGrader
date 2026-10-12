@@ -102,6 +102,7 @@ class TextIn(BaseModel):
 
 @app.get("/api/health")
 def health():
+    """Reports that the server is running and which methods loaded."""
     return {"status": "ok", "methods": list(state["arms"])}
 
 
