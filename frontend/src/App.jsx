@@ -307,7 +307,7 @@ function LoadingView({ text, result, onDone }) {
           <span className="sk sk-line" style={{ width: "100%" }} />
           <span className="sk sk-line" style={{ width: "92%" }} />
           <span className="sk sk-line" style={{ width: "60%" }} />
-          <p>Score and explanation appear once all three methods have answered (or after 15 s).</p>
+          <p>The language model usually takes 10 to 20 seconds. The score and explanation appear once every method has answered.</p>
         </div>
       </section>
 
@@ -354,8 +354,8 @@ export default function App() {
 
       setResult(data); // LoadingView sees this, fills the cards, then moves to the result page
     } catch (err) {
-      console.error("Couldn't reach the grader:", err);
-      setError("Couldn't reach the grader. Is the backend running on port 8000?");
+      console.error("Could not reach the grader:", err);
+      setError("Could not reach the grader. Please try again in a moment.");
       setView("input");
     }
   }

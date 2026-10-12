@@ -123,7 +123,7 @@ function majority(methods) {
 
 const NUMBER_WORDS = { 1: "one", 2: "two", 3: "three" };
 
-function MethodResults({ methods, warnings = [], onCompare }) {
+function MethodResults({ methods, onCompare }) {
   const { label, count } = majority(methods);
   const allAgree = count === methods.length;
 
@@ -136,14 +136,6 @@ function MethodResults({ methods, warnings = [], onCompare }) {
           {allAgree ? `All ${methods.length} methods agree: ${label}` : `${count} of ${methods.length} agree: ${label}`}
         </span>
       </div>
-
-      {warnings.length > 0 && (
-        <div className="method-warning" role="status">
-          {warnings.map((w) => (
-            <p key={w}>{w}</p>
-          ))}
-        </div>
-      )}
 
       <div className="method-grid">
         {methods.map((m) => (
@@ -214,12 +206,20 @@ export default function ResultView({ text, result, onGradeAnother, onNavigate })
 
       <ScoreCard result={result} onHowScored={() => onNavigate("How scoring works")} />
 
+      {result.warnings && result.warnings.length > 0 && (
+        <div className="method-warning" role="status">
+          {result.warnings.map((w) => (
+            <p key={w}>{w}</p>
+          ))}
+        </div>
+      )}
+
       <div className="result-grid">
         <FourChecks checks={result.checks} />
         <EvidencePanel text={text} checks={result.checks} />
       </div>
 
-      <MethodResults methods={result.methods} warnings={result.warnings} onCompare={() => onNavigate("Method comparison")} />
+      <MethodResults methods={result.methods} onCompare={() => onNavigate("Method comparison")} />
 
       <footer className="footer">
         <span>A first check, not a final verdict. A high score means the right ingredients are there, not that the company will deliver.</span>

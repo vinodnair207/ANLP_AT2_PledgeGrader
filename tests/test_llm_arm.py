@@ -246,3 +246,26 @@ def test_live_mode_stores_nothing_from_the_user(tmp_path):
     arm.predict(PLEDGE)
     assert client.calls == 2
     assert not (tmp_path / "cache.json").exists()
+
+
+def test_response_time_and_thinking_tokens_are_logged(tmp_path, caplog):
+    """Slow answers can be explained from the log, which records the time and the thinking tokens."""
+    class Usage:
+        prompt_token_count = 120
+        candidates_token_count = 80
+        thoughts_token_count = 900
+
+    client = FakeClient([answer()])
+    original = client.generate_content
+
+    def with_usage(model, contents, config):
+        response = original(model, contents, config)
+        response.usage_metadata = Usage()
+        return response
+
+    client.generate_content = with_usage
+    arm = ZeroShotLLMArm(make_cfg(tmp_path), client=client)
+    with caplog.at_level("INFO", logger="src.llm_arm"):
+        arm.predict(PLEDGE)
+    assert any("thinking 900 tokens" in record.getMessage() for record in caplog.records)
+    assert arm.stats["thinking_tokens"] == 900

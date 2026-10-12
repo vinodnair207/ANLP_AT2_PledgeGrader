@@ -135,7 +135,8 @@ SCOPE3 = re.compile(
     r"\bscopes?\s*(?:3|iii)\b"
     # Lists and ranges such as "Scopes 1, 2 and 3", "Scope 1, 2, and 3" and "Scopes 1 to 3".
     r"|\bscopes?\s*(?:[12]\s*(?:,\s*(?:and\s+|&\s*)?|and\s+|&\s*|to\s+|through\s+|[-/]\s*))+3\b"
-    r"|\b(?:full|entire)?\s*value[\s\-]?chain(?:\s+emissions?)?\b"
+    # The optional lead word is part of the match only when it is present, so the evidence has no leading space.
+    r"|\b(?:(?:full|entire)\s+)?value[\s\-]?chain(?:\s+emissions?)?\b"
     r"|\bsupply[\s\-]?chain\s+emissions?\b",
     re.I,
 )

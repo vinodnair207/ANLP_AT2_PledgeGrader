@@ -21,6 +21,7 @@ from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
 
 from src import evidence, rules
+from src.error_analysis import looks_non_english
 
 logger = logging.getLogger(__name__)
 
@@ -49,6 +50,10 @@ CHECK_META = {
                    "missing": "sets no interim milestones",
                    "tip": "A stronger pledge sets a nearer target on the way, for example a 50% cut by 2030."},
 }
+# Shown when the pledge looks non English, because the four checks are written for English text.
+NON_ENGLISH_WARNING = (
+    "This pledge may not be in English. The four checks are built for English text, "
+    "so checks shown as missing may be wrong.")
 # Opening words of the summary by the number of checks passed.
 SUPPORT_LEVELS = {0: "Not yet supported", 1: "Weakly supported", 2: "Half supported",
                   3: "Mostly supported", 4: "Fully supported"}
@@ -187,6 +192,9 @@ def grade_pledge(text: str, arms: dict, cfg: dict) -> dict:
     if not results:
         raise RuntimeError("No method could grade this pledge.")
 
+    # The checks use English patterns, so a probable non English pledge gets a visible caution.
+    if looks_non_english(text):
+        warnings.append(NON_ENGLISH_WARNING)
     label = decide_label(results)
     checks, score = build_checks(text, label, cfg["scoring"])
     return {"text": text, "score": score, "kind": LABEL_NAMES[label], "summary": build_summary(label, checks),
