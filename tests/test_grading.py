@@ -131,3 +131,24 @@ def test_response_keys_match_the_frontend_sample_when_present():
     assert set(sample) <= set(out)
     assert set(sample["checks"][0]) == set(out["checks"][0])
     assert set(sample["methods"][0]) == set(out["methods"][0])
+
+
+def test_scope3_evidence_has_no_leading_space():
+    """The evidence for a bare value chain mention starts at the first letter of the match."""
+    span = evidence.find_evidence("We aim to reach net zero emissions across our operations and value chain.")["scope3"]
+    assert span["evidence"] == "value chain"
+    assert span["evidence"] == "We aim to reach net zero emissions across our operations and value chain."[span["start"]:span["end"]]
+    full = evidence.find_evidence("We cover our entire value chain by 2045.")["scope3"]
+    assert full["evidence"] == "entire value chain"
+
+
+def test_non_english_pledge_gets_a_visible_warning():
+    """A French pledge is graded, but the page is told that missing checks may be wrong."""
+    french = "Nous nous engageons à atteindre la neutralité carbone d'ici 2050 et à réduire nos émissions de 40 % d'ici 2030."
+    out = grading.grade_pledge(french, arms(rules_label="none"), CFG)
+    assert grading.NON_ENGLISH_WARNING in out["warnings"]
+
+
+def test_english_pledge_has_no_language_warning():
+    """An English pledge produces no language warning."""
+    assert grading.NON_ENGLISH_WARNING not in grading.grade_pledge(STRONG, arms(), CFG)["warnings"]

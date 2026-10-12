@@ -352,7 +352,7 @@ textarea:focus { outline: 2px solid var(--green-700); outline-offset: 1px; }
   color: var(--rust);
   border-radius: 12px;
   padding: 10px 14px;
-  margin-bottom: 14px;
+  margin: 14px 0;
   font-size: 14px;
 }
 .method-warning p { margin: 0; }

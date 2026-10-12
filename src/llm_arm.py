@@ -244,6 +244,7 @@ class ZeroShotLLMArm:
         for attempt in range(1, self.max_retries + 1):
             self._wait_turn()
             try:
+                started = time.monotonic()
                 response = self.client.models.generate_content(
                     model=self.model_name, contents=f"TEXT:\n{text}", config=gen_config)
                 self.stats["api_calls"] += 1
@@ -251,6 +252,12 @@ class ZeroShotLLMArm:
                 if usage is not None:
                     self.stats["input_tokens"] += usage.prompt_token_count or 0
                     self.stats["output_tokens"] += usage.candidates_token_count or 0
+                    # Thinking tokens explain a slow answer, so they are logged beside the response time.
+                    thinking = getattr(usage, "thoughts_token_count", None) or 0
+                    self.stats["thinking_tokens"] = self.stats.get("thinking_tokens", 0) + thinking
+                    logger.info("Gemini answered in %.1f s (input %s, output %s, thinking %s tokens)",
+                                time.monotonic() - started, usage.prompt_token_count, usage.candidates_token_count,
+                                thinking)
                 return _LLMAnswer.model_validate_json(response.text)
             except errors.APIError as exc:
                 last_error = exc
