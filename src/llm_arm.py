@@ -319,7 +319,7 @@ class ZeroShotLLMArm:
             kept = sig.present and quote_in_text(sig.evidence, text)
             if sig.present and not kept:
                 self.stats["hallucinated_quotes"] += 1
-                logger.warning("Signal %s dropped: quote not found in text (%r)", name, sig.evidence)
+                logger.warning("Signal %s dropped: quote not found in text", name)
             signals[name] = kept
             evidence[name] = sig.evidence if kept else ""
 

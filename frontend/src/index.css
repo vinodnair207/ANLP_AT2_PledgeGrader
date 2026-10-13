@@ -375,6 +375,14 @@ textarea:focus { outline: 2px solid var(--green-700); outline-offset: 1px; }
   text-decoration: underline;
 }
 
+/* ---------- Inline explainers ---------- */
+.explainer { margin-top: 16px; }
+.explainer p { font-size: 14px; line-height: 1.55; margin-bottom: 10px; }
+.explainer-inline { margin: 0 0 28px; font-size: 14px; line-height: 1.5; }
+.score-table { width: 100%; max-width: 460px; border-collapse: collapse; margin-bottom: 12px; }
+.score-table caption { text-align: left; font-weight: 600; padding-bottom: 6px; }
+.score-table th, .score-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid #ece6d8; }
+
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
   .check-grid { grid-template-columns: repeat(2, 1fr); }
