@@ -10,7 +10,7 @@ pinned: false
 A web application that grades how credible a corporate net zero pledge is. A user pastes a pledge, and three methods read it on identical terms: a rule based baseline, a fine tuned ClimateBERT classifier and zero shot prompting of a large language model (Gemini). The app shows each method's target type, checks four robustness signals, and returns a score out of 100 with a plain language explanation of what is missing.
 
 * Repository: https://github.com/vinodnair207/ANLP_AT2_PledgeGrader
-* Public application: [INSERT Hugging Face Space URL]
+* Public application: https://huggingface.co/spaces/vinodnair207/pledgegrader
 * Fine tuned weights: https://huggingface.co/Doan16/pledgegrader-climatebert (pinned to one commit in `config/config.yaml`)
 
 This is Assessment Task 2 Part B for UTS 36118 Applied Natural Language Processing (Spring 2026), Group 14. The deadline is Saturday 17 October 2026. The team plans to submit on Friday 16 October.
