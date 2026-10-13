@@ -27,9 +27,59 @@ function CopyIcon() {
   );
 }
 
+// Test set results (517 held out sentences), copied from outputs/report/table_results.csv.
+const TEST_RESULTS = [
+  { name: "Rule-based", accuracy: "0.9226", f1: "0.9137" },
+  { name: "ClimateBERT", accuracy: "0.9613", f1: "0.9554" },
+  { name: "Zero-shot LLM", accuracy: "0.9497", f1: "0.9426" },
+];
+
+// Explains how the score is built from the four checks.
+function ScoringExplainer() {
+  return (
+    <section className="panel explainer" aria-live="polite">
+      <h2 className="panel-title">How the score works</h2>
+      <p>
+        The score is the sum of four checks worth 25 points each: a named target year, Scope 3 coverage, an
+        explanation of how offsets are used, and interim milestones. A pledge can therefore score 0, 25, 50, 75 or
+        100. If the pledge states no target at all, no check is graded and the score is 0.
+      </p>
+      <p>
+        A check counts only when the wording gives real evidence, such as a year tied to the target, and not just a
+        related keyword. The score is always calculated in code from the checks and never by a language model. It
+        measures how well a pledge is worded and supported. It does not show whether the company will deliver.
+      </p>
+    </section>
+  );
+}
+
+// Shows how each method performed on the shared held out test set.
+function CompareExplainer() {
+  return (
+    <div className="explainer-inline" aria-live="polite">
+      <table className="score-table">
+        <caption>Target type results on 517 held out test sentences</caption>
+        <thead>
+          <tr><th>Method</th><th>Accuracy</th><th>Macro F1</th></tr>
+        </thead>
+        <tbody>
+          {TEST_RESULTS.map((r) => (
+            <tr key={r.name}><td>{r.name}</td><td>{r.accuracy}</td><td>{r.f1}</td></tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        Both ClimateBERT and the zero-shot LLM beat the rule-based baseline by more than chance would explain. The
+        two newer methods cannot be separated statistically (p value 0.31), so a disagreement between them is a
+        reason to read the pledge yourself.
+      </p>
+    </div>
+  );
+}
+
 const SEGMENT_LABELS = { year: "Year", scope3: "Scope 3", offsets: "Offsets", milestones: "Milestones" };
 
-function ScoreCard({ result, onHowScored }) {
+function ScoreCard({ result, onHowScored, expanded }) {
   return (
     <section className="score-card">
       <div className="score-left">
@@ -49,7 +99,7 @@ function ScoreCard({ result, onHowScored }) {
       <div className="score-right">
         <span className="kind-pill">Kind of promise: {result.kind}</span>
         <p className="score-summary">{result.summary}</p>
-        <button className="link-light" onClick={onHowScored}>
+        <button className="link-light" onClick={onHowScored} aria-expanded={expanded}>
           How is this scored? 25 points for each check passed.
         </button>
       </div>
@@ -123,7 +173,7 @@ function majority(methods) {
 
 const NUMBER_WORDS = { 1: "one", 2: "two", 3: "three" };
 
-function MethodResults({ methods, onCompare }) {
+function MethodResults({ methods, onCompare, expanded }) {
   const { label, count } = majority(methods);
   const allAgree = count === methods.length;
 
@@ -165,14 +215,19 @@ function MethodResults({ methods, onCompare }) {
       <p className="methods-note">
         When methods disagree, the banner turns orange (“2 of 3 agree”) and the odd one out is outlined, so the
         difference is visible, not hidden.{" "}
-        <button className="link" onClick={onCompare}>See how each method scores on our test set</button>.
+        <button className="link" onClick={onCompare} aria-expanded={expanded}>
+          {expanded ? "Hide the test set results" : "See how each method scores on our test set"}
+        </button>.
       </p>
+      {expanded && <CompareExplainer />}
     </section>
   );
 }
 
 export default function ResultView({ text, result, onGradeAnother, onNavigate }) {
   const [copied, setCopied] = useState(false);
+  const [open, setOpen] = useState(null); // "scoring", "compare" or null
+  const toggle = (name) => setOpen((cur) => (cur === name ? null : name));
 
   async function copyResult() {
     const lines = [
@@ -204,7 +259,8 @@ export default function ResultView({ text, result, onGradeAnother, onNavigate })
         </div>
       </div>
 
-      <ScoreCard result={result} onHowScored={() => onNavigate("How scoring works")} />
+      <ScoreCard result={result} onHowScored={() => toggle("scoring")} expanded={open === "scoring"} />
+      {open === "scoring" && <ScoringExplainer />}
 
       {result.warnings && result.warnings.length > 0 && (
         <div className="method-warning" role="status">
@@ -219,7 +275,7 @@ export default function ResultView({ text, result, onGradeAnother, onNavigate })
         <EvidencePanel text={text} checks={result.checks} />
       </div>
 
-      <MethodResults methods={result.methods} onCompare={() => onNavigate("Method comparison")} />
+      <MethodResults methods={result.methods} onCompare={() => toggle("compare")} expanded={open === "compare"} />
 
       <footer className="footer">
         <span>A first check, not a final verdict. A high score means the right ingredients are there, not that the company will deliver.</span>

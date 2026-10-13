@@ -1,0 +1,89 @@
+row,text,gold,pred_rules,pred_climatebert,pred_llm,long_text,has_line_break,non_english,reviewer_category,reviewer_notes
+0,"The emissions target for 2040 
+2. The Northern Ireland departments must ensure that the net Northern Ireland
+emissions account for the year 2040 is in line with the overall target for the year
+2050.
+The emissions target for 2030 has already been set. 
+3. The Northern Ireland departments must ensure that the net Northern Ireland
+emissions account for the year 2030 is at least 48% lower than the baseline.",reduction,reduction,reduction,net_zero,False,True,False,genuine model mistake,Statute extract states a 2030 reduction of 48 percent and refers to the 2050 target without net zero wording. The LLM label of net zero is a model mistake.
+38,Greenhouse gas emissions (vs fiscal 2019): 1.28 million t-co2e (-20%) (Pg. 75),reduction,none,reduction,reduction,False,False,True,wording problem,Table entry in shorthand (a bracketed minus 20 percent) with no verb. The non English flag is a false positive of the rough check. The rules missed it.
+40,"To facilitate the change towards net zero, in January 2020, we also announced the launch of our first green bond, issued by National Grid Electricity Transmission plc.",none,net_zero,none,net_zero,False,False,False,genuine model mistake,Mentions net zero only as background to a green bond and states no target. Gold none is correct. Rules and LLM matched the phrase without checking for a target.
+43,"""Reduce CO2 emissions from power generation by 50% by fiscal 2025 (reduction of over 25 million tonnes from fiscal 2013 levels) and maintain industry-leading reduction levels."". (The Kansai Electric Power Group, Zero Carbon Roadmap, March 25 2022, pg. 3)",reduction,net_zero,reduction,reduction,False,False,False,extraction problem,"The pasted source citation contains the words Zero Carbon Roadmap, which triggered the rule net zero pattern. The sentence itself is a clear reduction target."
+44,"""Switzerland submitted its “nationally determined contribution” (NDC), in which it set a total GHG emissions reduction target of at least 50% by 2030 compared with 1990 levels. Switzerland’s long-term goal is to reduce its GHG emissions to net zero by 2050. ""
+",net_zero,net_zero,reduction,net_zero,False,True,False,labelling ambiguity or label error,States a 50 percent cut by 2030 and net zero by 2050. Both labels are defensible. ClimateBERT chose reduction.
+54,"As part of our science-based target commitment, we seek to reduce absolute Scope 1 and Scope 2 carbon emissions 100% by 2030, against a 2015 baseline, then move to carbon positivity, meaning our carbon capture is greater than our carbon emission.",net_zero,reduction,reduction,net_zero,False,False,False,labelling ambiguity or label error,A 100 percent absolute cut by 2030 followed by carbon positivity sits between reduction and net zero.
+56,"In terms of mid- to long-term CO2 emission reduction targets for business activities, we aim for a 30% reduction in
+FY2030 (compared to FY2018) and a goal of “net-zero
+CO2 emissions” by 2050. ",net_zero,net_zero,reduction,net_zero,False,True,False,labelling ambiguity or label error,A 30 percent cut by FY2030 and a net zero goal for 2050 appear together. ClimateBERT chose reduction.
+114,"""We will invest EUR7 billion until 2030 to reduce our greenhouse gas emissions to under 29 million tonnes by 2030 and thereby commit to the Science-Based Targets initiative (SBTi)."" Total emissions from 2020 seems to range from 27-39 MTCO2e across reports from the company, where scope 3 is measured inconsistently: Deutsche Post DHL changed from a tank-to-wheel to a well-to-wheel calculation approach to estimate its GHG emissions in March 2021. According to the company, this approach led to an increase of its total emissions in 2020 from 27.38 to 33.3 MtCO2e, of which 8.0 MtCO2e are scope 1, 0.2 MtCO2e scope 2 (market-based) and 25.0 MtCO2e scope 3 emissions. A further breakdown of emissions is not yet available. The new estimates reported by Deutsche Post are lower than the sum of 39.10 MtCO2e in the company’s ESG Statbook, so it remains unclear whether all emission sources are included. 
+
+""We will invest €7 billion until 2030 in clean operations to reduce our emissions from 33 MT in 2020 to under 29 MT by 2030""
+Source: 
+Interim targets for 2025 relate to carbon intensity and zero emissions vehicles rather than emissions reductions, but are not set as distinct targets.",reduction,net_zero,reduction,reduction,True,True,False,extraction problem,"Long text of about 1,200 characters with several quotations and commentary. The rules matched zero emissions vehicles in the commentary and not the pledge."
+122,"The energy sector is the highest contributor of GHG in Liberia emanating mainly from the use of traditional fuels such as firewood, charcoal and palm oil and the use of fossil fuels,
+especially petroleum products. To reduce the reliance on traditional fuel and increase the use of modern and renewable energy sources, the National Energy Policy (2009) was
+developed with a set of goals targeted at maximizing efficiency, minimizing costs and adverse environmental impacts as principle of extending energy access to all Liberians.
+Most recently, Liberia’s Initial National Communication (2013) reinforces the National Energy Policy with additional long-term targets and related activities, which includes:  
+• Reducing GHGs by at least 10% by 2030
+• Improving energy efficiency by at least 20% by 2030
+• Raising share of renewable energy to at least 30% of electricity production and
+10% of overall energy consumption by 2030
+• Replacing cooking stoves with low thermal efficiency (5-10%) with the higherefficiency (40%) stoves.
+The long-term strategy of Liberia is to achieve carbon neutrality by 2050. The strategic
+options for mitigation considered under the INDC are the energy sector (electricity,
+transport) and the waste sector. The Waste Sector focuses on solid waste disposal on land.
+In 2000, the waste sector accounted for about 0.60% of Liberia’s national total CO2 eq
+emissions. A significant subcategory is CH4 emissions from solid waste disposal sites
+(SWDS) on land, which contributed 91.7%. CH4 mitigation targets will include landfill
+recovery, waste incineration with energy recovery, composting of organic waste,
+controlled wastewater treatment, and recycling and waste minimization.",net_zero,net_zero,none,net_zero,True,True,False,extraction problem,"Long policy text of about 1,700 characters. The carbon neutrality statement comes after the 128 token limit of ClimateBERT, which labelled it none. The text also holds a reduction target, so the gold label is debatable."
+153,"From the 2015 Bremischen climate and energy law. It appears the target was missed , and no further targets have been given.
+",reduction,none,reduction,none,False,True,False,labelling ambiguity or label error,"The sentence states no target and only comments that a target was missed. The gold label depends on context outside the sentence. Rules and LLM labelled none, which the text supports."
+157,"• Reduce absolute Scopes 1 and 2 GHG emissions 50% by 2030 from a 2020 base year;
+• Reduce absolute Scope 3 GHG emissions from purchased goods and services, upstream transportation and distribution, use of sold products and end-of-life treatment of sold products 50% by 2030 from a 2020 base year;
+• Have 20% of our suppliers by spend covering purchased goods and services adopt SBTs by 2025. 
+Have ""carbon neutral operations"" by 2030.
+(p11)",reduction,net_zero,reduction,net_zero,False,True,False,labelling ambiguity or label error,Bulleted 50 percent reduction targets followed by carbon neutral operations by 2030. Mixed target types.
+174,"On the path to carbon neutrality, Steel Dynamics is targeting a 20% Scope 1 and Scope 2 combined greenhouse gas (GHG) emissions intensity reduction across its EAF steel mills by 2025 and a 50% reduction by 2030, compared to a 2018 baseline. Additionally, the company plans to increase the use of renewable electrical energy for its EAF steel mills to 10% by 2025 and 30% by 2030.
+
+",reduction,net_zero,reduction,net_zero,False,True,False,labelling ambiguity or label error,Reduction targets of 20 and 50 percent introduced by the phrase on the path to carbon neutrality. Mixed wording.
+265,"JetBlue is among the aviation community committed to these targets to achieve carbon neutral growth within the industry:
+An average improvement in fuel efficiency of 1.5% per year from 2009 to 2020
+A cap on net aviation CO2 emissions from 2020 (carbon-neutral growth)
+A reduction in net aviation CO2 emissions of 50% by 2050, relative to 2005 levels ",net_zero,reduction,net_zero,net_zero,False,True,False,labelling ambiguity or label error,A carbon neutral growth cap from 2020 and a 50 percent cut by 2050. Mixed target types.
+290,"As per the plan, the largest emission reduction efforts (and investment) will be targeted towards energy (in various forms and usage), which currently contributes 72% of total emissions. Vehicular emissions and emissions from waste contribute the remaining emissions. 
+
+The plan targets 30% reduction in emissions by 2030, 44% by 2040, and 100% by 2050, compared to emission levels in 2019.
+",reduction,reduction,reduction,net_zero,False,True,False,labelling ambiguity or label error,"A cut of 100 percent by 2050 is equivalent to net zero, so the LLM label is defensible."
+298,"(b) by 2030, at least 53% below the levels that were emitted in 2005; and
+
+",reduction,none,reduction,reduction,False,True,False,extraction problem,A clause fragment that begins with (b) and lacks the main verb. The target is only implied by the words below the levels of 2005.
+318,"The projected changes are presented for the period 2021-2050 relative to the 1971-2000 baseline period.
+- page 8",reduction,none,reduction,none,False,True,False,labelling ambiguity or label error,"Describes climate projections and a baseline period, not an emissions target. The gold label is not supported by the text. Rules and LLM labelled none."
+328,"Economy-wide reduction GHG emission of 30% when compared to BAU scenario by 2030
+
+The reference year for the target is 2030 and the target is expressed both as relative to a BAU scenario for that year, and relative to 2010 baseline emissions.(Updated NDC 2022, p.43)
+
+- It is however important to highlight that a reduction on emissions from the LULUCF sector plays a major role in achieving the set goals and that the country’s longer-term ambition is to reach net zero emissions from the LULUCF sector by 2045.",reduction,net_zero,reduction,net_zero,True,True,False,labelling ambiguity or label error,"A 30 percent reduction against a business as usual scenario, with a longer term net zero ambition for the land use sector."
+351,Reduce GHG emissions (Scopes 1+2) (on a market basis*1) by 55% by FY2030 and to zero by FY2050 (compared to FY2017).,reduction,reduction,reduction,net_zero,False,False,False,labelling ambiguity or label error,Reduce by 55 percent by FY2030 and to zero by FY2050 combines both target types.
+352,"In the company's report "" Corporate responsibility "" there is no clear commitment to Net zero target or even the year to achieve this goal, nor  mentioned in the letter from the chairman of the company.  'Reduce global absolute GHG emissions, Scopes 1 and 2, to 3.4 kT CO2e by 2031, which represents a 95% reduction compared to our 2021 baseline.' (p49)",reduction,net_zero,net_zero,reduction,False,False,False,genuine model mistake,The sentence says there is no clear net zero commitment and then quotes a 95 percent reduction target. Rules and ClimateBERT were misled by the negated mention. The LLM was correct.
+353,"Comparativement à 2003, d’ici 2020 puis 2030 et 2050, réduire de 30% puis 50% et 75% les niveaux par habitant d'émission de gaz à effet de serre et de consommation finale d’énergie -- ",reduction,none,reduction,reduction,False,False,True,wording problem,French wording. The rule patterns are written for English.
+363,"""short to medium-term target, target year 2030 -30%, base year 2015. Scope: ships & aircrafts. ",reduction,none,reduction,reduction,False,False,True,wording problem,"Shorthand (target year 2030, minus 30 percent, base year 2015) with no verb. The non English flag is a false positive of the rough check."
+367,"40% Reduction in the Council's Greenhouse gas emissions by 2030 part of 2019-2024 plan
+Our vision is for a zero carbon City with all energy coming from renewable sources",reduction,net_zero,net_zero,reduction,False,True,False,labelling ambiguity or label error,A 40 percent reduction by 2030 and a vision for a zero carbon city appear together.
+380,"5% energy efficiency improvement target for 2016-2020,
+Baseline is set as the average equity Scope 1 and 2 emissions over 2016-2020 and may be adjusted (up or down) for potential equity changes in producing or sanctioned assets, with an FID prior to 2021.",reduction,none,reduction,reduction,False,True,False,wording problem,An energy efficiency improvement target with an emissions baseline. The rule patterns look for reduction wording and missed the word improvement.
+453,"We are using 2019 as our baseline year for our scope
+1 and 2 reduction target of 35 per cent by 2035. ",reduction,none,reduction,reduction,False,True,False,wording problem,The words per cent are not matched by the rule patterns. The same sentence with a percent sign is labelled reduction. A line break also splits scope and 1.
+455,"In attuazione del parere reso dalla Commissione Europea n. 773/2018 e denominato “Un pianeta pulito per tutti”, il Presidente della Giunta Regionale Michele Emiliano è stato nominato relatore dal Comitato delle Regioni ai fini della redazione del parere denominato “Un pianeta pulito per tutti. Una visione strategica a lungo termine per un’economia prospera, moderna, competitiva e neutra dal punto di vista del clima” approvato ad unanimità in Commissione Ambiente (ENVE) del Comitato delle Regioni in sessione plenaria nelle date del 26 e 27 giugno 2019 a Bruxelles (Belgio). Il parere, in sintesi, contempla quale principale obiettivo la lotta ai cambiamenti climatici, integrando ed armonizzando strategie ambientali, sociali ed economiche al fine di favorire la transizione dell’Unione Europea verso un’economia efficiente e sostenibile, in cui l’ambiente naturale dovrà essere protetto e potenziato, unitamente alla salute ed al benessere dei cittadini.",net_zero,none,net_zero,none,True,False,True,labelling ambiguity or label error,Describes an opinion of a regional committee on a climate neutral economy and states no commitment. The gold label depends on the title. The text is also not in English.
+472,"2030 target
+- 50%
+emissions compared to 2018 baselin",reduction,none,reduction,reduction,False,True,False,extraction problem,Fragment from a table or slide with line breaks and a truncated last word. The target is only implied.
+485,"The Government is committed to reforming the climate policies of the European Union and Finland so that we can do our part to limit the global mean temperature increase to 1.5 degrees Celsius. Finland aims to develop the EU’s long-term climate measures so that the EU can achieve carbon neutrality before 2050. This means tightening the emissions reduction obligation for 2030 to at least 55 per cent below the 1990 emissions level. 
+
+The target set in the Government Programme is for transport sector emissions to be halved from 2005 levels by 2030. Transport sector emissions are declining too slowly in relation to the target: the existing measures are expected to reduce emissions to 7.9 million tonnes, but emissions should decrease to 6.3 million tonnes. In May 2021, the Government adopted a resolution on a roadmap for fossil-free transport to achieve this target.",net_zero,net_zero,reduction,net_zero,True,True,False,labelling ambiguity or label error,A carbon neutrality aim for the EU by 2050 and a 55 percent cut by 2030 are both stated. The text is also long.
+498,"2030: Absolute reduction of CO2 emissions by 75% (compared to 2008)
+2025: Absolute reduction of CO2 emissions by 66% (compared to 2008)
+2021: Net zero CO2 emissions onwards",reduction,net_zero,reduction,net_zero,False,True,False,labelling ambiguity or label error,A schedule that mixes 66 and 75 percent cuts with net zero from 2021.
+505,Our ambition is to be CO₂-neutral by 2039.,net_zero,none,net_zero,net_zero,False,False,False,wording problem,"The rule patterns do not match the form CO2 neutral, with or without the subscript two."
+508,Amsterdam aims for a 95% emmissions reduction by 2050 (reference year 1990). Unclear how this becomes climate neutrality though.,net_zero,net_zero,net_zero,reduction,False,False,False,labelling ambiguity or label error,States a 95 percent reduction by 2050 and comments that the path to climate neutrality is unclear. The gold label reflects the annotator's inference.
